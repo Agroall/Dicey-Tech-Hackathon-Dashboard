@@ -57,9 +57,10 @@ def app():
             post_count_temp=media.value_counts('year_month').sort_index()
             df={'post_count_temp':post_count_temp}
             post_count_temp=pd.DataFrame(df, index=post_count_temp.index)
+            post_count_temp['date']=post_count_temp.index
             sns.lineplot(
                 data=post_count_temp,
-                x=post_count_temp.index,
+                x='date',
                 y='post_count_temp',
                 ax=ax,
                 label=mediums_list[index],
@@ -79,9 +80,10 @@ def app():
             impressions_avg_temp = media.groupby('year_month')['Impressions'].mean()
             df={'impressions_avg_temp':impressions_avg_temp}
             impressions_avg_temp=pd.DataFrame(df, index=impressions_avg_temp.index)
+            impressions_avg_temp['date']=impressions_avg_temp.index
             sns.lineplot(
                 data=impressions_avg_temp,
-                x=impressions_avg_temp.index,
+                x='date',
                 y='impressions_avg_temp',
                 ax=ax,
                 label=mediums_list[index],
@@ -102,9 +104,11 @@ def app():
             engagement_avg_temp[engagement_avg_temp > 1500] = 1200
             df={'engagement_avg_temp':engagement_avg_temp}
             engagement_avg_temp=pd.DataFrame(df, index=engagement_avg_temp.index)
+            engagement_avg_temp['date']=engagement_avg_temp.index
+            
             sns.lineplot(
                 data=engagement_avg_temp,
-                x=engagement_avg_temp.index,
+                x='date',
                 y='engagement_avg_temp',
                 ax=ax,
                 label=mediums_list[index],
@@ -125,9 +129,11 @@ def app():
             engagement_avg_temp[engagement_avg_temp > 25] = 25
             df={'engagement_avg_temp':engagement_avg_temp}
             engagement_avg_temp=pd.DataFrame(df, index=engagement_avg_temp.index)
+            engagement_avg_temp['date']=engagement_avg_temp.index
+            
             sns.lineplot(
                 data=engagement_avg_temp,
-                x=engagement_avg_temp.index,
+                x='date',
                 y='engagement_avg_temp',
                 ax=ax,
                 label=mediums_list[index],
