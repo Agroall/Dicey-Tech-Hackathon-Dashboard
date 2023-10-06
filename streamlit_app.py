@@ -25,7 +25,7 @@ mediums_list = ['Facebook', 'Instagram', 'Twitter', 'Linkedin']
 
 for lister in [mediums, mediums_impression_temp, mediums_engagement_temp]:
     for media in lister:
-        media['Date'] = pd.to_datetime(media['Date'])
+        media['Date'] = pd.to_datetime(media['Date'], format='%-m/%-d/%Y %I:%M %p')
         media.sort_values('Date',inplace=True)
         media['year_month'] = media['Date'].apply(lambda x: x.strftime('%Y-%m'))
         media['year'] = media['Date'].apply(lambda x: x.strftime('%Y'))
