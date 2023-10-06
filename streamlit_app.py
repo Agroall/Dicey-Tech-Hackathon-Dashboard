@@ -255,7 +255,7 @@ heatmap_choice = st.selectbox('Select metric to view', [
 ]
 
                               
-st.markdown('### Time Series Analysis')
+# st.markdown('### Time Series Analysis')
 
 # st.markdown('### Time Series Analysis')
 if heatmap_choice == 'Heatmap of Values by Day of Week and Hour for Facebook':
