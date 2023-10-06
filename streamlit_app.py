@@ -71,178 +71,176 @@ plot_choice = st.selectbox('Select metric to view', [
     'Average Monthly Engagements Rate Per Impression Made on All Media'
 
 ])
-c1 = st.columns(1)
-with c1:
-    st.markdown('### Time Series Analysis')
-    # Create the selected line plot
-    if plot_choice == 'Number of Posts Made on All Media Platforms':
-        traces = []
+st.markdown('### Time Series Analysis')
+# Create the selected line plot
+if plot_choice == 'Number of Posts Made on All Media Platforms':
+    traces = []
 
-        for index, media in enumerate(mediums):
-            post_count_temp = media.value_counts('year_month').sort_index()
-            trace = go.Scatter(
-                x=post_count_temp.index,
-                y=post_count_temp,
-                name=mediums_list[index],
-                line=dict(width=3),
-                fill='tozeroy'
-            )
-            traces.append(trace)
-
-        # Create a layout for the chart
-        layout = go.Layout(
-            title='Time Series Analysis of The Number of Posts Made on All Media Platforms',
-            xaxis=dict(
-                tickmode='array',
-                tickvals=pd.date_range(start=start_date, end=end_date, freq='M')[::3],
-                ticktext=pd.date_range(start=start_date, end=end_date, freq='M')[::3].strftime('%Y-%m'),
-                tickangle=90,
-                tickfont=dict(size=12)
-            ),
-            yaxis=dict(title='Number of Posts', showgrid=True), # Add horizontal gridlines
-            legend=dict(x=0, y=1),
-            margin=dict(l=50, r=50, b=50, t=80, pad=0),
-            plot_bgcolor='white',
-            paper_bgcolor='white',
-            height=800, # Increase the height of the chart
-            width=1200 # Increase the width of the chart
+    for index, media in enumerate(mediums):
+        post_count_temp = media.value_counts('year_month').sort_index()
+        trace = go.Scatter(
+            x=post_count_temp.index,
+            y=post_count_temp,
+            name=mediums_list[index],
+            line=dict(width=3),
+            fill='tozeroy'
         )
+        traces.append(trace)
 
-        # Create the figure object and plot the chart
-        fig = go.Figure(data=traces, layout=layout)
-        fig.show()
+    # Create a layout for the chart
+    layout = go.Layout(
+        title='Time Series Analysis of The Number of Posts Made on All Media Platforms',
+        xaxis=dict(
+            tickmode='array',
+            tickvals=pd.date_range(start=start_date, end=end_date, freq='M')[::3],
+            ticktext=pd.date_range(start=start_date, end=end_date, freq='M')[::3].strftime('%Y-%m'),
+            tickangle=90,
+            tickfont=dict(size=12)
+        ),
+        yaxis=dict(title='Number of Posts', showgrid=True), # Add horizontal gridlines
+        legend=dict(x=0, y=1),
+        margin=dict(l=50, r=50, b=50, t=80, pad=0),
+        plot_bgcolor='white',
+        paper_bgcolor='white',
+        height=800, # Increase the height of the chart
+        width=1200 # Increase the width of the chart
+    )
 
+    # Create the figure object and plot the chart
+    fig = go.Figure(data=traces, layout=layout)
+    fig.show()
+
+
+elif plot_choice == 'Average Monthly Impressions Made on All Media':
+    traces = []
+
+    start_date = min(media['year_month'].min() for media in mediums_impression_temp)
+    end_date = max(media['year_month'].max() for media in mediums_impression_temp)
+    date_range = pd.date_range(start=start_date, end=end_date, freq='M')
     
-    elif plot_choice == 'Average Monthly Impressions Made on All Media':
-        traces = []
-
-        start_date = min(media['year_month'].min() for media in mediums_impression_temp)
-        end_date = max(media['year_month'].max() for media in mediums_impression_temp)
-        date_range = pd.date_range(start=start_date, end=end_date, freq='M')
-        
-        for index, media in enumerate(mediums_impression_temp):
-            impressions_avg_temp = media.groupby('year_month')['Impressions'].mean()
-            trace = go.Scatter(
-                x=impressions_avg_temp.index,
-                y=impressions_avg_temp,
-                name=mediums_list[index],
-                line=dict(width=3),
-                fill='tozeroy'
-            )
-            traces.append(trace)
-        
-        # Create a layout for the chart
-        layout = go.Layout(
-            title='Time Series Analysis of The Average Monthly Impressions Made on All Media',
-            xaxis=dict(
-                tickmode='array',
-                tickvals=pd.date_range(start=start_date, end=end_date, freq='M')[::3],
-                ticktext=pd.date_range(start=start_date, end=end_date, freq='M')[::3].strftime('%Y-%m'),
-                tickangle=90,
-                tickfont=dict(size=12)
-            ),
-            yaxis=dict(title='Average Monthly Impressions'),
-            legend=dict(x=0, y=1),
-            margin=dict(l=50, r=50, b=50, t=80, pad=0),
-            plot_bgcolor='white',
-            paper_bgcolor='white',
-            height=800,
-            width=1200
+    for index, media in enumerate(mediums_impression_temp):
+        impressions_avg_temp = media.groupby('year_month')['Impressions'].mean()
+        trace = go.Scatter(
+            x=impressions_avg_temp.index,
+            y=impressions_avg_temp,
+            name=mediums_list[index],
+            line=dict(width=3),
+            fill='tozeroy'
         )
-        
-        # Create the figure object and plot the chart
-        fig = go.Figure(data=traces, layout=layout)
-        fig.show()
-
-
-    elif plot_choice == 'Average Monthly Engagements Made on All Media':
-        traces = []
-
-        start_date = min(media['year_month'].min() for media in mediums_engagement_temp)
-        end_date = max(media['year_month'].max() for media in mediums_engagement_temp)
-        date_range = pd.date_range(start=start_date, end=end_date, freq='M')
-        
-        for index, media in enumerate(mediums_engagement_temp):
-            engagement_avg_temp = media.groupby('year_month')['Engagements'].mean()
-            engagement_avg_temp[engagement_avg_temp > 1500] = 1200
-            trace = go.Scatter(
-                x=engagement_avg_temp.index,
-                y=engagement_avg_temp,
-                name=mediums_list[index],
-                line=dict(width=3),
-                fill='tozeroy'
-            )
-            traces.append(trace)
-        
-        # Create a layout for the chart
-        layout = go.Layout(
-            title='Time Series Analysis of The Average Monthly Engagements Made on All Media',
-            xaxis=dict(
-                tickmode='array',
-                tickvals=pd.date_range(start=start_date, end=end_date, freq='M')[::3],
-                ticktext=pd.date_range(start=start_date, end=end_date, freq='M')[::3].strftime('%Y-%m'),
-                tickangle=90,
-                tickfont=dict(size=12)
-            ),
-            yaxis=dict(title='Average Monthly Engagements', showgrid=True),
-            legend=dict(x=0, y=1),
-            margin=dict(l=50, r=50, b=50, t=80, pad=0),
-            plot_bgcolor='white',
-            paper_bgcolor='white',
-            height=800,
-            width=1200
-        )
-        
-        # Create the figure object and plot the chart
-        fig = go.Figure(data=traces, layout=layout)
-        fig.show()
-
-
-    elif plot_choice == 'Average Monthly Engagements Rate Per Impression Made on All Media':
-        traces = []
-
-        start_date = min(media['year_month'].min() for media in mediums)
-        end_date = max(media['year_month'].max() for media in mediums)
-        date_range = pd.date_range(start=start_date, end=end_date, freq='M')
-        
-        for index, media in enumerate(mediums_engagement_temp):
-            engagement_avg_temp = media.groupby('year_month')['Engagement Rate (per Impression)'].mean()
-            engagement_avg_temp[engagement_avg_temp > 25] = 25
-            trace = go.Scatter(
-                x=engagement_avg_temp.index,
-                y=engagement_avg_temp,
-                name=mediums_list[index],
-                line=dict(width=3),
-                fill='tozeroy'
-            )
-            traces.append(trace)
-        
-        # Create a layout for the chart
-        layout = go.Layout(
-            title='Time Series Analysis of The Average Monthly Engagements Rate Per Impression Made on All Media',
-            xaxis=dict(
-                tickmode='array',
-                tickvals=pd.date_range(start=start_date, end=end_date, freq='M')[::3],
-                ticktext=pd.date_range(start=start_date, end=end_date, freq='M')[::3].strftime('%Y-%m'),
-                tickangle=90,
-                tickfont=dict(size=12)
-            ),
-            yaxis=dict(title='Average Engagements Rate (per Impression)', showgrid=True),
-            legend=dict(x=0, y=1),
-            margin=dict(l=50, r=50, b=50, t=80, pad=0),
-            plot_bgcolor='white',
-            paper_bgcolor='white',
-            height=800,
-            width=1200
-        )
-        
-        # Create the figure object and plot the chart
-        fig = go.Figure(data=traces, layout=layout)
-        fig.show()
-
+        traces.append(trace)
     
-    # Display the selected line plot
-    st.plotly_chart(fig)
+    # Create a layout for the chart
+    layout = go.Layout(
+        title='Time Series Analysis of The Average Monthly Impressions Made on All Media',
+        xaxis=dict(
+            tickmode='array',
+            tickvals=pd.date_range(start=start_date, end=end_date, freq='M')[::3],
+            ticktext=pd.date_range(start=start_date, end=end_date, freq='M')[::3].strftime('%Y-%m'),
+            tickangle=90,
+            tickfont=dict(size=12)
+        ),
+        yaxis=dict(title='Average Monthly Impressions'),
+        legend=dict(x=0, y=1),
+        margin=dict(l=50, r=50, b=50, t=80, pad=0),
+        plot_bgcolor='white',
+        paper_bgcolor='white',
+        height=800,
+        width=1200
+    )
+    
+    # Create the figure object and plot the chart
+    fig = go.Figure(data=traces, layout=layout)
+    fig.show()
+
+
+elif plot_choice == 'Average Monthly Engagements Made on All Media':
+    traces = []
+
+    start_date = min(media['year_month'].min() for media in mediums_engagement_temp)
+    end_date = max(media['year_month'].max() for media in mediums_engagement_temp)
+    date_range = pd.date_range(start=start_date, end=end_date, freq='M')
+    
+    for index, media in enumerate(mediums_engagement_temp):
+        engagement_avg_temp = media.groupby('year_month')['Engagements'].mean()
+        engagement_avg_temp[engagement_avg_temp > 1500] = 1200
+        trace = go.Scatter(
+            x=engagement_avg_temp.index,
+            y=engagement_avg_temp,
+            name=mediums_list[index],
+            line=dict(width=3),
+            fill='tozeroy'
+        )
+        traces.append(trace)
+    
+    # Create a layout for the chart
+    layout = go.Layout(
+        title='Time Series Analysis of The Average Monthly Engagements Made on All Media',
+        xaxis=dict(
+            tickmode='array',
+            tickvals=pd.date_range(start=start_date, end=end_date, freq='M')[::3],
+            ticktext=pd.date_range(start=start_date, end=end_date, freq='M')[::3].strftime('%Y-%m'),
+            tickangle=90,
+            tickfont=dict(size=12)
+        ),
+        yaxis=dict(title='Average Monthly Engagements', showgrid=True),
+        legend=dict(x=0, y=1),
+        margin=dict(l=50, r=50, b=50, t=80, pad=0),
+        plot_bgcolor='white',
+        paper_bgcolor='white',
+        height=800,
+        width=1200
+    )
+    
+    # Create the figure object and plot the chart
+    fig = go.Figure(data=traces, layout=layout)
+    fig.show()
+
+
+elif plot_choice == 'Average Monthly Engagements Rate Per Impression Made on All Media':
+    traces = []
+
+    start_date = min(media['year_month'].min() for media in mediums)
+    end_date = max(media['year_month'].max() for media in mediums)
+    date_range = pd.date_range(start=start_date, end=end_date, freq='M')
+    
+    for index, media in enumerate(mediums_engagement_temp):
+        engagement_avg_temp = media.groupby('year_month')['Engagement Rate (per Impression)'].mean()
+        engagement_avg_temp[engagement_avg_temp > 25] = 25
+        trace = go.Scatter(
+            x=engagement_avg_temp.index,
+            y=engagement_avg_temp,
+            name=mediums_list[index],
+            line=dict(width=3),
+            fill='tozeroy'
+        )
+        traces.append(trace)
+    
+    # Create a layout for the chart
+    layout = go.Layout(
+        title='Time Series Analysis of The Average Monthly Engagements Rate Per Impression Made on All Media',
+        xaxis=dict(
+            tickmode='array',
+            tickvals=pd.date_range(start=start_date, end=end_date, freq='M')[::3],
+            ticktext=pd.date_range(start=start_date, end=end_date, freq='M')[::3].strftime('%Y-%m'),
+            tickangle=90,
+            tickfont=dict(size=12)
+        ),
+        yaxis=dict(title='Average Engagements Rate (per Impression)', showgrid=True),
+        legend=dict(x=0, y=1),
+        margin=dict(l=50, r=50, b=50, t=80, pad=0),
+        plot_bgcolor='white',
+        paper_bgcolor='white',
+        height=800,
+        width=1200
+    )
+    
+    # Create the figure object and plot the chart
+    fig = go.Figure(data=traces, layout=layout)
+    fig.show()
+
+
+# Display the selected line plot
+st.plotly_chart(fig)
 
 st.sidebar.markdown('''
 ---
