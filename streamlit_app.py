@@ -257,47 +257,64 @@ heatmap_choice = st.selectbox('Select metric to view', [
 
                               
 # st.markdown('### Time Series Analysis')
+# Your previous code ...
+
+heatmap_choice = st.selectbox('Select metric to view', [
+    'Heatmap of Values by Day of Week and Hour for Facebook',
+    'Heatmap of Values by Day of Week and Hour for Instagram',
+    'Heatmap of Values by Day of Week and Hour for Twitter',
+    'Heatmap of Values by Day of Week and Hour for Linkedin',
+])
+
+# st.markdown('### Time Series Analysis')
 if heatmap_choice == 'Heatmap of Values by Day of Week and Hour for Facebook':
+    # Code for Facebook heatmap ...
     heatmap_data = pd.pivot_table(fb_reduced, values='Impressions', index='day_of_week', columns='hour')
     heatmap_data = heatmap_data.reindex(['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'])
-    
+
     heatmap_data = heatmap_data[heatmap_data < (heatmap_data.mean() * 2.5)]
-    
+
     fig = go.Figure(data=go.Heatmap(
         z=heatmap_data.values,
         x=heatmap_data.columns,
         y=heatmap_data.index,
         colorscale='Blues'
     ))
-    
+
     fig.update_layout(
-        title=f'Heatmap of Values by Day of Week and Hour',
+        title=f'Heatmap of Values by Day of Week and Hour for Facebook',
         xaxis=dict(title='Hour'),
         yaxis=dict(title='Day of Week')
     )
-    
+
     st.plotly_chart(fig)
 
 elif heatmap_choice == 'Heatmap of Values by Day of Week and Hour for Instagram':
+    # Code for Instagram heatmap ...
     heatmap_data = pd.pivot_table(ig_reduced, values='Impressions', index='day_of_week', columns='hour')
     heatmap_data = heatmap_data.reindex(['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'])
-    
+
     heatmap_data = heatmap_data[heatmap_data < (heatmap_data.mean() * 2.5)]
-    
+
     fig = go.Figure(data=go.Heatmap(
         z=heatmap_data.values,
         x=heatmap_data.columns,
         y=heatmap_data.index,
         colorscale='Blues'
     ))
-    
+
     fig.update_layout(
-        title=f'Heatmap of Values by Day of Week and Hour',
+        title=f'Heatmap of Values by Day of Week and Hour for Instagram',
         xaxis=dict(title='Hour'),
         yaxis=dict(title='Day of Week')
     )
-    
+
     st.plotly_chart(fig)
+
+# Repeat the same structure for Twitter and Linkedin heatmaps ...
+
+# The rest of your code ...
+
 
 
 elif heatmap_choice == 'Heatmap of Values by Day of Week and Hour for Twitter':
