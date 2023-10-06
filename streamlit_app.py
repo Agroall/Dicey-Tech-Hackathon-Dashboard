@@ -1,5 +1,116 @@
 import streamlit as st
 import pandas as pd
-st.title('🎈 App Name')
+import seaborn as sns
+import matplotlib.pyplot as plt
 
-st.write('Hello world!')
+# Define your data
+# ...
+
+mediums = [fb_reduced, ig_reduced, tw_reduced, ln_reduced]
+mediums_impression_temp = [fb_reduced_impressed, ig_reduced_impressed, tw_reduced_impressed, ln_reduced_impressed]
+mediums_engagement_temp = [fb_reduced_engaged, ig_reduced_engaged, tw_reduced_engaged, ln_reduced_engaged]
+mediums_list = ['Facebook', 'Instagram', 'Twitter', 'Linkedin']
+
+# Define the Streamlit app
+def app():
+    st.title('Time Series Analysis)
+    
+    # Add a dropdown to select the line plot
+    plot_choice = st.selectbox('Select line plot', [
+        'Number of Posts Made on All Media Platforms',
+        'Average Monthly Impressions Made on All Media',
+        'Average Monthly Engagements Made on All Media',
+        'Average Monthly Engagements Rate Per Impression Made on All Media'
+    ])
+    
+    # Create the selected line plot
+    if plot_choice == 'Number of Posts Made on All Media Platforms':
+        fig, ax = plt.subplots(figsize=[20, 10])
+        start_date = min(media['year_month'].min() for media in mediums)
+        end_date = max(media['year_month'].max() for media in mediums)
+        date_range = pd.date_range(start=start_date, end=end_date, freq='M')
+        for index, media in enumerate(mediums):
+            post_count_temp=media.value_counts('year_month').sort_index()
+            sns.lineplot(
+                data=post_count_temp,
+                x=post_count_temp.index,
+                y=post_count_temp,
+                ax=ax,
+                label=mediums_list[index],
+                linewidth=3
+            )
+        ax.set_xticks(range(0, len(date_range), 3))
+        ax.set_xticklabels(date_range[::3].strftime('%Y-%m'), rotation=90, fontsize=12)
+        ax.set_title('Time Series Analysis of The Number of Posts Made on All Media Platforms')
+        ax.legend()
+        plt.grid(which='major',axis='y')
+    elif plot_choice == 'Average Monthly Impressions Made on All Media':
+        fig, ax = plt.subplots(figsize=[20, 10])
+        start_date = min(media['year_month'].min() for media in mediums_impression_temp)
+        end_date = max(media['year_month'].max() for media in mediums_impression_temp)
+        date_range = pd.date_range(start=start_date, end=end_date, freq='M')
+        for index, media in enumerate(mediums_impression_temp):
+            impressions_avg_temp = media.groupby('year_month')['Impressions'].mean()
+            sns.lineplot(
+                data=impressions_avg_temp,
+                x=impressions_avg_temp.index,
+                y=impressions_avg_temp,
+                ax=ax,
+                label=mediums_list[index],
+                linewidth=3
+            )
+        ax.set_xticks(range(0, len(date_range), 3))
+        ax.set_xticklabels(date_range[::3].strftime('%Y-%m'), rotation=90, fontsize=12)
+        ax.set_title('Time Series Analysis of The Average Monthly Impressions Made on All Media')
+        ax.legend()
+        plt.grid(which='major',axis='y')
+    elif plot_choice == 'Average Monthly Engagements Made on All Media':
+        fig, ax = plt.subplots(figsize=[20, 10])
+        start_date = min(media['year_month'].min() for media in mediums_engagement_temp)
+        end_date = max(media['year_month'].max() for media in mediums_engagement_temp)
+        date_range = pd.date_range(start=start_date, end=end_date, freq='M')
+        for index, media in enumerate(mediums_engagement_temp):
+            engagement_avg_temp = media.groupby('year_month')['Engagements'].mean()
+            engagement_avg_temp[engagement_avg_temp > 1500] = 1200
+            sns.lineplot(
+                data=engagement_avg_temp,
+                x=engagement_avg_temp.index,
+                y=engagement_avg_temp,
+                ax=ax,
+                label=mediums_list[index],
+                linewidth=3
+            )
+        ax.set_xticks(range(0, len(date_range), 3))
+        ax.set_xticklabels(date_range[::3].strftime('%Y-%m'), rotation=90, fontsize=12)
+        plt.grid(which='major',axis='y')
+        ax.set_title('Time Series Analysis of The Average Monthly Engagements Made on All Media')
+        ax.legend()
+    elif plot_choice == 'Average Monthly Engagements Rate Per Impression Made on All Media':
+        fig, ax = plt.subplots(figsize=[20, 10])
+        start_date = min(media['year_month'].min() for media in mediums)
+        end_date = max(media['year_month'].max() for media in mediums)
+        date_range = pd.date_range(start=start_date, end=end_date, freq='M')
+        for index, media in enumerate(mediums_engagement_temp):
+            engagement_avg_temp = media.groupby('year_month')['Engagement Rate (per Impression)'].mean()
+            engagement_avg_temp[engagement_avg_temp > 25] = 25
+            sns.lineplot(
+                data=engagement_avg_temp,
+                x=engagement_avg_temp.index,
+                y=engagement_avg_temp,
+                ax=ax,
+                label=mediums_list[index],
+                linewidth=3
+            )
+            
+        ax.set_xticks(range(0, len(date_range), 3))
+        ax.set_xticklabels(date_range[::3].strftime('%Y-%m'), rotation=90, fontsize=12)
+        plt.grid(which='major',axis='y')
+        ax.set_title('Time Series Analysis of The Average Monthly Engagements Rate Per Impression Made on All Media')
+        ax.legend()
+    
+    # Display the selected line plot
+    st.pyplot(fig)
+
+# # Run the Streamlit app
+# if __name__ == '__main__':
+#     app()
