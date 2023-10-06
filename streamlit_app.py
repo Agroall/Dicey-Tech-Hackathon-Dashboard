@@ -257,7 +257,7 @@ heatmap_choice = st.selectbox('Select metric to view', [
 
                               
 # st.markdown('### Time Series Analysis')
-if heatmap_choice == 'Heatmap of Values by Day of Week and Hour for Facebook'
+if heatmap_choice == 'Heatmap of Values by Day of Week and Hour for Facebook':
     heatmap_data = pd.pivot_table(fb_reduced, values='Impressions', index='day_of_week', columns='hour')
     heatmap_data = heatmap_data.reindex(['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'])
     
@@ -278,7 +278,7 @@ if heatmap_choice == 'Heatmap of Values by Day of Week and Hour for Facebook'
     
     st.plotly_chart(fig)
 
-elif heatmap_choice == 'Heatmap of Values by Day of Week and Hour for Instagram'
+elif heatmap_choice == 'Heatmap of Values by Day of Week and Hour for Instagram':
     heatmap_data = pd.pivot_table(ig_reduced, values='Impressions', index='day_of_week', columns='hour')
     heatmap_data = heatmap_data.reindex(['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'])
     
@@ -300,7 +300,7 @@ elif heatmap_choice == 'Heatmap of Values by Day of Week and Hour for Instagram'
     st.plotly_chart(fig)
 
 
-elif heatmap_choice == 'Heatmap of Values by Day of Week and Hour for Twitter'
+elif heatmap_choice == 'Heatmap of Values by Day of Week and Hour for Twitter':
     heatmap_data = pd.pivot_table(tw_reduced, values='Impressions', index='day_of_week', columns='hour')
     heatmap_data = heatmap_data.reindex(['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'])
     
@@ -321,7 +321,7 @@ elif heatmap_choice == 'Heatmap of Values by Day of Week and Hour for Twitter'
     
     st.plotly_chart(fig)
 
-elif heatmap_choice == 'Heatmap of Values by Day of Week and Hour for Linkedin'
+elif heatmap_choice == 'Heatmap of Values by Day of Week and Hour for Linkedin':
     heatmap_data = pd.pivot_table(ln_reduced, values='Impressions', index='day_of_week', columns='hour')
     heatmap_data = heatmap_data.reindex(['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'])
     
