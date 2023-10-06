@@ -4,7 +4,19 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 
 # Define your data
-# ...
+fb_reduced = pd.read_csv('Dicey/fb_reduced') 
+fb_reduced_engaged = pd.read_csv('Dicey/fb_reduced_engaged') 
+fb_reduced_impressed = pd.read_csv('Dicey/fb_reduced_impressed') 
+ln_reduced = pd.read_csv('Dicey/ln_reduced') 
+ln_reduced_engaged = pd.read_csv('Dicey/ln_reduced_engaged') 
+ln_reduced_impressed = pd.read_csv('Dicey/ln_reduced_impressed') 
+tw_reduced = pd.read_csv('Dicey/tw_reduced') 
+tw_reduced_engaged = pd.read_csv('Dicey/tw_reduced_engaged') 
+tw_reduced_impressed = pd.read_csv('Dicey/tw_reduced_impressed') 
+ig_reduced = pd.read_csv('Dicey/ig_reduced') 
+ig_reduced_engaged = pd.read_csv('Dicey/ig_reduced_engaged') 
+ig_reduced_impressed = pd.read_csv('Dicey/ig_reduced_impressed') 
+
 
 mediums = [fb_reduced, ig_reduced, tw_reduced, ln_reduced]
 mediums_impression_temp = [fb_reduced_impressed, ig_reduced_impressed, tw_reduced_impressed, ln_reduced_impressed]
