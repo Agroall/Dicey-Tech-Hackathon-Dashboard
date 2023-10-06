@@ -34,8 +34,11 @@ for lister in [mediums, mediums_impression_temp, mediums_engagement_temp]:
         media['hour']=media['hour'].astype('int64')
         media['hour_cat']=pd.cut(media['hour'],[0,4,8,12,16,20,24])
         for column in media.columns:
-            media[column] = media[column].str.replace(',', '')
-            media[column] = media[column].str.replace('%', '')
+            try:
+                media[column] = media[column].str.replace(',', '')
+                media[column] = media[column].str.replace('%', '')
+            except AttributeError:
+                continue
             if column in media.select_dtypes(include='object').columns:
                 try:
                     media[column] = media[column].astype('float64')
