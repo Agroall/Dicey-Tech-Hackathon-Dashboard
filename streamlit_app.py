@@ -64,6 +64,8 @@ st.title('`Dicey Tech Hackathon Dashboard`')
 
 # Add a dropdown to select the line plot
 st.sidebar.subheader('Time Series Analysis')
+st.markdown('### Time Series Analysis')
+
 plot_choice = st.selectbox('Select metric to view', [
     'Number of Posts Made on All Media Platforms',
     'Average Monthly Impressions Made on All Media',
@@ -71,7 +73,6 @@ plot_choice = st.selectbox('Select metric to view', [
     'Average Monthly Engagements Rate Per Impression Made on All Media'
 
 ])
-st.markdown('### Time Series Analysis')
 # Create the selected line plot
 if plot_choice == 'Number of Posts Made on All Media Platforms':
     traces = []
@@ -247,6 +248,98 @@ elif plot_choice == 'Average Monthly Engagements Rate Per Impression Made on All
 # Display the selected line plot
 st.plotly_chart(fig)
 
+heatmap_choice = st.selectbox('Select metric to view', [
+    'Heatmap of Values by Day of Week and Hour for Facebook',
+    'Heatmap of Values by Day of Week and Hour for Instagram',
+    'Heatmap of Values by Day of Week and Hour for Twitter',
+    'Heatmap of Values by Day of Week and Hour for Linkedin',
+]
+st.markdown('### Time Series Analysis')
+
+if heatmap_choice == 'Heatmap of Values by Day of Week and Hour for Facebook'
+    heatmap_data = pd.pivot_table(fb_reduced, values='Impressions', index='day_of_week', columns='hour')
+    heatmap_data = heatmap_data.reindex(['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'])
+    
+    heatmap_data = heatmap_data[heatmap_data < (heatmap_data.mean() * 2.5)]
+    
+    fig = go.Figure(data=go.Heatmap(
+        z=heatmap_data.values,
+        x=heatmap_data.columns,
+        y=heatmap_data.index,
+        colorscale='Blues'
+    ))
+    
+    fig.update_layout(
+        title=f'Heatmap of Values by Day of Week and Hour',
+        xaxis=dict(title='Hour'),
+        yaxis=dict(title='Day of Week')
+    )
+    
+    st.plotly_chart(fig)
+
+elif heatmap_choice == 'Heatmap of Values by Day of Week and Hour for Instagram'
+    heatmap_data = pd.pivot_table(ig_reduced, values='Impressions', index='day_of_week', columns='hour')
+    heatmap_data = heatmap_data.reindex(['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'])
+    
+    heatmap_data = heatmap_data[heatmap_data < (heatmap_data.mean() * 2.5)]
+    
+    fig = go.Figure(data=go.Heatmap(
+        z=heatmap_data.values,
+        x=heatmap_data.columns,
+        y=heatmap_data.index,
+        colorscale='Blues'
+    ))
+    
+    fig.update_layout(
+        title=f'Heatmap of Values by Day of Week and Hour',
+        xaxis=dict(title='Hour'),
+        yaxis=dict(title='Day of Week')
+    )
+    
+    st.plotly_chart(fig)
+
+
+elif heatmap_choice == 'Heatmap of Values by Day of Week and Hour for Twitter'
+    heatmap_data = pd.pivot_table(tw_reduced, values='Impressions', index='day_of_week', columns='hour')
+    heatmap_data = heatmap_data.reindex(['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'])
+    
+    heatmap_data = heatmap_data[heatmap_data < (heatmap_data.mean() * 2.5)]
+    
+    fig = go.Figure(data=go.Heatmap(
+        z=heatmap_data.values,
+        x=heatmap_data.columns,
+        y=heatmap_data.index,
+        colorscale='Blues'
+    ))
+    
+    fig.update_layout(
+        title=f'Heatmap of Values by Day of Week and Hour',
+        xaxis=dict(title='Hour'),
+        yaxis=dict(title='Day of Week')
+    )
+    
+    st.plotly_chart(fig)
+
+elif heatmap_choice == 'Heatmap of Values by Day of Week and Hour for Linkedin'
+    heatmap_data = pd.pivot_table(ln_reduced, values='Impressions', index='day_of_week', columns='hour')
+    heatmap_data = heatmap_data.reindex(['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'])
+    
+    heatmap_data = heatmap_data[heatmap_data < (heatmap_data.mean() * 2.5)]
+    
+    fig = go.Figure(data=go.Heatmap(
+        z=heatmap_data.values,
+        x=heatmap_data.columns,
+        y=heatmap_data.index,
+        colorscale='Blues'
+    ))
+    
+    fig.update_layout(
+        title=f'Heatmap of Values by Day of Week and Hour',
+        xaxis=dict(title='Hour'),
+        yaxis=dict(title='Day of Week')
+    )
+    
+    st.plotly_chart(fig)
 st.sidebar.markdown('''
 ---
 Created By Abatan Ayodeji (Agroall) For Dicey Tech Hackathon.
