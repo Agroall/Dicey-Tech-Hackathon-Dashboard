@@ -30,7 +30,7 @@ for lister in [mediums, mediums_impression_temp, mediums_engagement_temp]:
         media['year_month'] = media['Date'].apply(lambda x: x.strftime('%Y-%m'))
         media['year'] = media['Date'].apply(lambda x: x.strftime('%Y'))
         media['day_of_week'] = media['Date'].apply(lambda x: x.strftime('%A'))
-        media['hour'] = media'[Date'].apply(lambda x: x.strftime('%H'))
+        media['hour'] = media['Date'].apply(lambda x: x.strftime('%H'))
         media['hour']=media['hour'].astype('int64')
         media['hour_cat']=pd.cut(media['hour'],[0,4,8,12,16,20,24])
         
