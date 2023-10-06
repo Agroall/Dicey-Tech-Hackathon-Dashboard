@@ -34,6 +34,8 @@ for lister in [mediums, mediums_impression_temp, mediums_engagement_temp]:
         media['hour']=media['hour'].astype('int64')
         media['hour_cat']=pd.cut(media['hour'],[0,4,8,12,16,20,24])
         for column in media.columns:
+            media[column] = media[column].str.replace(',', '')
+            media[column] = media[column].str.replace('%', '')
             if column in media.select_dtypes(include='object').columns:
                 try:
                     media[column] = media[column].astype('float64')
@@ -87,7 +89,7 @@ def app():
         end_date = max(media['year_month'].max() for media in mediums_impression_temp)
         date_range = pd.date_range(start=start_date, end=end_date, freq='M')
         for index, media in enumerate(mediums_impression_temp):
-            impressions_avg_temp = media.groupby('year_month')['Impressions'].median()
+            impressions_avg_temp = media.groupby('year_month')['Impressions'].mean()
             df={'impressions_avg_temp':impressions_avg_temp}
             impressions_avg_temp=pd.DataFrame(df, index=impressions_avg_temp.index)
             impressions_avg_temp['date']=impressions_avg_temp.index
@@ -110,7 +112,7 @@ def app():
         end_date = max(media['year_month'].max() for media in mediums_engagement_temp)
         date_range = pd.date_range(start=start_date, end=end_date, freq='M')
         for index, media in enumerate(mediums_engagement_temp):
-            engagement_avg_temp = media.groupby('year_month')['Engagements'].median()
+            engagement_avg_temp = media.groupby('year_month')['Engagements'].mean()
             engagement_avg_temp[engagement_avg_temp > 1500] = 1200
             df={'engagement_avg_temp':engagement_avg_temp}
             engagement_avg_temp=pd.DataFrame(df, index=engagement_avg_temp.index)
@@ -135,7 +137,7 @@ def app():
         end_date = max(media['year_month'].max() for media in mediums)
         date_range = pd.date_range(start=start_date, end=end_date, freq='M')
         for index, media in enumerate(mediums_engagement_temp):
-            engagement_avg_temp = media.groupby('year_month')['Engagement Rate (per Impression)'].median()
+            engagement_avg_temp = media.groupby('year_month')['Engagement Rate (per Impression)'].mean()
             engagement_avg_temp[engagement_avg_temp > 25] = 25
             df={'engagement_avg_temp':engagement_avg_temp}
             engagement_avg_temp=pd.DataFrame(df, index=engagement_avg_temp.index)
