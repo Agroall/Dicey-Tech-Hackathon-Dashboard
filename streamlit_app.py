@@ -35,7 +35,10 @@ for lister in [mediums, mediums_impression_temp, mediums_engagement_temp]:
         media['hour_cat']=pd.cut(media['hour'],[0,4,8,12,16,20,24])
         for column in media.columns:
             if column in media.select_dtypes(include='object').columns:
-                media[column] = media[column].astype('float64')
+                try:
+                    media[column] = media[column].astype('float64')
+                except ValueError:
+                    continue
 
 
         
