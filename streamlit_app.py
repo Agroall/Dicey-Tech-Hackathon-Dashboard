@@ -25,7 +25,7 @@ mediums_list = ['Facebook', 'Instagram', 'Twitter', 'Linkedin']
 
 # Define the Streamlit app
 def app():
-    st.title('Time Series Analysis)
+    st.title('Time Series Analysis')
     
     # Add a dropdown to select the line plot
     plot_choice = st.selectbox('Select line plot', [
