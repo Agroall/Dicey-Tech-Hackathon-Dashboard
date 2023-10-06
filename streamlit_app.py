@@ -254,8 +254,9 @@ heatmap_choice = st.selectbox('Select metric to view', [
     'Heatmap of Values by Day of Week and Hour for Twitter',
     'Heatmap of Values by Day of Week and Hour for Linkedin',
 ]
-st.markdown('### Time Series Analysis')
 
+                              
+st.markdown('### Time Series Analysis')
 if heatmap_choice == 'Heatmap of Values by Day of Week and Hour for Facebook'
     heatmap_data = pd.pivot_table(fb_reduced, values='Impressions', index='day_of_week', columns='hour')
     heatmap_data = heatmap_data.reindex(['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'])
