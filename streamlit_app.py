@@ -76,6 +76,11 @@ st.markdown('### Time Series Analysis')
 if plot_choice == 'Number of Posts Made on All Media Platforms':
     traces = []
 
+    start_date = min(media['year_month'].min() for media in mediums)
+    end_date = max(media['year_month'].max() for media in mediums)
+    date_range = pd.date_range(start=start_date, end=end_date, freq='M')
+
+
     for index, media in enumerate(mediums):
         post_count_temp = media.value_counts('year_month').sort_index()
         trace = go.Scatter(
