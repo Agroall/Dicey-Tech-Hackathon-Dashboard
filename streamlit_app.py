@@ -3,7 +3,7 @@ import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
 
-# Define your data
+# Data
 fb_reduced = pd.read_csv('Dicey/fb_reduced') 
 fb_reduced_engaged = pd.read_csv('Dicey/fb_reduced_engaged') 
 fb_reduced_impressed = pd.read_csv('Dicey/fb_reduced_impressed') 
@@ -23,7 +23,18 @@ mediums_impression_temp = [fb_reduced_impressed, ig_reduced_impressed, tw_reduce
 mediums_engagement_temp = [fb_reduced_engaged, ig_reduced_engaged, tw_reduced_engaged, ln_reduced_engaged]
 mediums_list = ['Facebook', 'Instagram', 'Twitter', 'Linkedin']
 
-# Define the Streamlit app
+for lister in [mediums, mediums_impression_temp, mediums_engagement_temp]:
+    for media in lister:
+        media['year_month'] = media.Date.apply(lambda x: x.strftime('%Y-%m'))
+        media.sort_values('Date',inplace=True)
+        media['year'] = media.Date.apply(lambda x: x.strftime('%Y'))
+        media['day_of_week'] = media.Date.apply(lambda x: x.strftime('%A'))
+        media['hour'] = media.Date.apply(lambda x: x.strftime('%H'))
+        media['hour']=media.hour.astype('int64')
+        media['hour_cat']=pd.cut(media.hour,[0,4,8,12,16,20,24])
+        
+
+# Streamlit app
 def app():
     st.title('Time Series Analysis')
     
