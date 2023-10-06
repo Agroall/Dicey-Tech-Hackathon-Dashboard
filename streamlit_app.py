@@ -123,6 +123,6 @@ def app():
     # Display the selected line plot
     st.pyplot(fig)
 
-# # Run the Streamlit app
-# if __name__ == '__main__':
-#     app()
+# Run the Streamlit app
+if __name__ == '__main__':
+    app()
