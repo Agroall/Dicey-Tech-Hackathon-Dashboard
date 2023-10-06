@@ -318,46 +318,51 @@ elif heatmap_choice == 'Heatmap of Values by Day of Week and Hour for Instagram'
 
 
 elif heatmap_choice == 'Heatmap of Values by Day of Week and Hour for Twitter':
+    # Code for Twitter heatmap ...
     heatmap_data = pd.pivot_table(tw_reduced, values='Impressions', index='day_of_week', columns='hour')
     heatmap_data = heatmap_data.reindex(['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'])
-    
+
     heatmap_data = heatmap_data[heatmap_data < (heatmap_data.mean() * 2.5)]
-    
+
     fig = go.Figure(data=go.Heatmap(
         z=heatmap_data.values,
         x=heatmap_data.columns,
         y=heatmap_data.index,
         colorscale='Blues'
     ))
-    
+
     fig.update_layout(
-        title=f'Heatmap of Values by Day of Week and Hour',
+        title=f'Heatmap of Values by Day of Week and Hour for Twitter',
         xaxis=dict(title='Hour'),
         yaxis=dict(title='Day of Week')
     )
-    
+
     st.plotly_chart(fig)
 
 elif heatmap_choice == 'Heatmap of Values by Day of Week and Hour for Linkedin':
+    # Code for Linkedin heatmap ...
     heatmap_data = pd.pivot_table(ln_reduced, values='Impressions', index='day_of_week', columns='hour')
     heatmap_data = heatmap_data.reindex(['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'])
-    
+
     heatmap_data = heatmap_data[heatmap_data < (heatmap_data.mean() * 2.5)]
-    
+
     fig = go.Figure(data=go.Heatmap(
         z=heatmap_data.values,
         x=heatmap_data.columns,
         y=heatmap_data.index,
         colorscale='Blues'
     ))
-    
+
     fig.update_layout(
-        title=f'Heatmap of Values by Day of Week and Hour',
+        title=f'Heatmap of Values by Day of Week and Hour for Linkedin',
         xaxis=dict(title='Hour'),
         yaxis=dict(title='Day of Week')
     )
-    
+
     st.plotly_chart(fig)
+
+
+
 st.sidebar.markdown('''
 ---
 Created By Abatan Ayodeji (Agroall) For Dicey Tech Hackathon.
