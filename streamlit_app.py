@@ -2,8 +2,8 @@ import streamlit as st
 import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
-from plotly import graph_objs as go
 import plotly.express as px
+from plotly import graph_objs as go
 
 
 st.set_page_config(layout='wide', initial_sidebar_state='expanded')
@@ -109,8 +109,8 @@ with c1:
         )
 
         # Create the figure object and plot the chart
-        post_fig = go.Figure(data=traces, layout=layout)
-        post_fig.show()
+        fig = go.Figure(data=traces, layout=layout)
+        fig.show()
 
     
     elif plot_choice == 'Average Monthly Impressions Made on All Media':
@@ -151,8 +151,8 @@ with c1:
         )
         
         # Create the figure object and plot the chart
-        impression_fig = go.Figure(data=traces, layout=layout)
-        impression_fig.show()
+        fig = go.Figure(data=traces, layout=layout)
+        fig.show()
 
 
     elif plot_choice == 'Average Monthly Engagements Made on All Media':
@@ -194,8 +194,8 @@ with c1:
         )
         
         # Create the figure object and plot the chart
-        engagement_fig = go.Figure(data=traces, layout=layout)
-        engagement_fig.show()
+        fig = go.Figure(data=traces, layout=layout)
+        fig.show()
 
 
     elif plot_choice == 'Average Monthly Engagements Rate Per Impression Made on All Media':
@@ -237,12 +237,12 @@ with c1:
         )
         
         # Create the figure object and plot the chart
-        engage_impress_ratio_fig = go.Figure(data=traces, layout=layout)
-        engage_impress_ratio_fig.show()
+        fig = go.Figure(data=traces, layout=layout)
+        fig.show()
 
     
-    # # Display the selected line plot
-    # st.pyplot(fig)
+    # Display the selected line plot
+    st.plotly_chart(fig)
 
 st.sidebar.markdown('''
 ---
