@@ -79,8 +79,7 @@ if plot_choice == 'Number of Posts Made on All Media Platforms':
 
     start_date = min(media['year_month'].min() for media in mediums)
     end_date = max(media['year_month'].max() for media in mediums)
-    date_range = pd.date_range(start=start_date, end=end_date, freq='M')
-
+    date_range = pd.date_range(start=start_date, end=end_date, freq='M') 
 
     for index, media in enumerate(mediums):
         post_count_temp = media.value_counts('year_month').sort_index()
@@ -256,15 +255,7 @@ heatmap_choice = st.selectbox('Select metric to view', [
 ]
 
                               
-# st.markdown('### Time Series Analysis')
-# Your previous code ...
-
-heatmap_choice = st.selectbox('Select metric to view', [
-    'Heatmap of Values by Day of Week and Hour for Facebook',
-    'Heatmap of Values by Day of Week and Hour for Instagram',
-    'Heatmap of Values by Day of Week and Hour for Twitter',
-    'Heatmap of Values by Day of Week and Hour for Linkedin',
-])
+st.markdown('### Time Series Analysis')
 
 # st.markdown('### Time Series Analysis')
 if heatmap_choice == 'Heatmap of Values by Day of Week and Hour for Facebook':
@@ -310,10 +301,6 @@ elif heatmap_choice == 'Heatmap of Values by Day of Week and Hour for Instagram'
     )
 
     st.plotly_chart(fig)
-
-# Repeat the same structure for Twitter and Linkedin heatmaps ...
-
-# The rest of your code ...
 
 
 
