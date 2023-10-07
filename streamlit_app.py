@@ -97,9 +97,9 @@ content_choice = st.sidebar.selectbox(' Select platform', [
 # Metrics
 st.markdown('### Metrics')
 col1, col2, col3 = st.columns(3)
-col1.metric("Most Used Platform", "X", "X% of posts")
-col2.metric("Most Viewed Platform", "X", "X Average Impressions Per Post")
-col3.metric("Most Engaging Platform", "X", "X% Average Impressions Per Post")
+col1.metric("Most Used Platform", "Instagram", "27% of posts")
+col2.metric("Most Viewed Platform", "Facebook", "5400 Average Impressions Per Post")
+col3.metric("Most Engaging Platform", "Instagram", "% Average Impressions Per Post")
 
 
 # Time Series Analysis Section#
@@ -274,18 +274,20 @@ elif plot_choice == 'Engagements':
     fig.show()
 
 # Display the selected line plot
-st.plotly_chart(fig)
+# st.plotly_chart(fig)
 
-# Posting Times
-st.markdown('### Best Times To Post')
 
 st.markdown('### Metrics')
 col1, col2 = st.columns(2)
-col1.metric("Best Period To Post On Facebook", "Sunday, Tuesday, Friday", "8-12pm")
-col2.metric("Best Period To Post On Facebook", "Sunday, Tuesday, Friday", "8-12pm")
+col1.metric("Best Period To Post On Facebook", "Saturday, Monnday, Friday", "8-12pm")
+col2.metric("Best Period To Post On Instagram", "Sunday, Saturday, Friday", "9pm-2am")
 col3, col4 = st.columns(2)
-col3.metric("Best Period To Post On Facebook", "Sunday, Tuesday, Friday", "8-12pm")
-col4.metric("Best Period To Post On Facebook", "Sunday, Tuesday, Friday", "8-12pm")
+col3.metric("Best Period To Post On Twitter", "Sunday, Wednesday, Thursday", "8-12pm")
+col4.metric("Best Period To Post On LInkedin", "Saturday, Sunday, Monday", "")
+
+
+# Posting Times
+st.markdown('### Best Times To Post By Average Impression')
 
 
 # Heatmaps Section
