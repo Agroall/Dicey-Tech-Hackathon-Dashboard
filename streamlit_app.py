@@ -266,6 +266,8 @@ elif plot_choice == 'Average Monthly Engagements Rate Per Impression Made on All
 st.plotly_chart(fig)
 
 # Posting Times
+st.markdown('### Best Times To Post')
+
 st.markdown('### Metrics')
 col1, col2 = st.columns(2)
 col1.metric("Best Period To Post On Facebook", "Sunday, Tuesday, Friday", "8-12pm")
@@ -276,7 +278,6 @@ col4.metric("Best Period To Post On Facebook", "Sunday, Tuesday, Friday", "8-12p
 
 
 # Heatmaps Section
-st.markdown('### Heatmaps')
 if heatmap_choice == 'Heatmap of Values by Day of Week and Hour for Facebook':
     heatmap_data = pd.pivot_table(fb_reduced, values='Impressions', index='day_of_week', columns='hour')
     heatmap_data = heatmap_data.reindex(['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'])
@@ -291,7 +292,7 @@ if heatmap_choice == 'Heatmap of Values by Day of Week and Hour for Facebook':
     ))
 
     fig.update_layout(
-        title=f'Heatmap of Values by Day of Week and Hour for Facebook',
+        title=f'Best Time To Post on Facebook By Impressions',
         xaxis=dict(title='Hour'),
         yaxis=dict(title='Day of Week'),
         height=800, # Increase the height of the chart
@@ -315,7 +316,7 @@ elif heatmap_choice == 'Heatmap of Values by Day of Week and Hour for Instagram'
     ))
 
     fig.update_layout(
-        title=f'Heatmap of Values by Day of Week and Hour for Instagram',
+        title=f'Best Time To Post on Instagram By Impressions',
         xaxis=dict(title='Hour'),
         yaxis=dict(title='Day of Week'),
         height=800, # Increase the height of the chart
@@ -339,7 +340,7 @@ elif heatmap_choice == 'Heatmap of Values by Day of Week and Hour for Twitter':
     ))
 
     fig.update_layout(
-        title=f'Heatmap of Values by Day of Week and Hour for Twitter',
+        title=f'Best Time To Post on Twitter By Impressions',
         xaxis=dict(title='Hour'),
         yaxis=dict(title='Day of Week'),
         height=800, # Increase the height of the chart
@@ -363,7 +364,7 @@ elif heatmap_choice == 'Heatmap of Values by Day of Week and Hour for Linkedin':
     ))
 
     fig.update_layout(
-        title=f'Heatmap of Values by Day of Week and Hour for Linkedin',
+        title=f'Best Time To Post on Linkedin By Impressions',
         xaxis=dict(title='Hour'),
         yaxis=dict(title='Day of Week'),
         height=800, # Increase the height of the chart
