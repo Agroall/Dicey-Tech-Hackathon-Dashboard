@@ -256,7 +256,7 @@ heatmap_choice = st.selectbox('Select metric to view', [
     'Heatmap of Values by Day of Week and Hour for Instagram',
     'Heatmap of Values by Day of Week and Hour for Twitter',
     'Heatmap of Values by Day of Week and Hour for Linkedin',
-]
+])
 
                               
 if heatmap_choice == 'Heatmap of Values by Day of Week and Hour for Facebook':
