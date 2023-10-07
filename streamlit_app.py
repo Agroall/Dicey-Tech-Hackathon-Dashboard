@@ -289,7 +289,7 @@ col4.metric("Best Period To Post On Facebook", "Sunday, Tuesday, Friday", "8-12p
 
 
 # Heatmaps Section
-if heatmap_choice == 'Heatmap of Values by Day of Week and Hour for Facebook':
+if heatmap_choice == 'Facebook':
     heatmap_data = pd.pivot_table(fb_reduced, values='Impressions', index='day_of_week', columns='hour')
     heatmap_data = heatmap_data.reindex(['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'])
 
@@ -381,7 +381,9 @@ elif heatmap_choice == 'Linkedin':
         height=800, # Increase the height of the chart
         width=1200 # Increase the width of the chart
     )
-
+    
+    st.plotly_chart(fig)
+    
 
 # Content Type
 if content_choice == 'Facebook':
