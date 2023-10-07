@@ -290,7 +290,7 @@ col4.metric("Best Period To Post On Linkedin", "Thursday, Saturday", "8-12pm")
 
 # Heatmaps Section
 if heatmap_choice == 'Heatmap of Values by Day of Week and Hour for Facebook':
-    heatmap_data = pd.pivot_table(fb_reduced, values='Impressions', index='day_of_week', columns='hour', aggfunc='median')
+    heatmap_data = pd.pivot_table(fb_reduced, values='Impressions', index='day_of_week', columns='hour', aggfunc='mean')
     heatmap_data = heatmap_data.reindex(['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'])
 
     heatmap_data = heatmap_data[heatmap_data < (heatmap_data.mean() * 2.5)]
