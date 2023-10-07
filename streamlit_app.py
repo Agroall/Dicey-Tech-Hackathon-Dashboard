@@ -107,7 +107,7 @@ if plot_choice == 'Number of Posts Made on All Media Platforms':
             y=post_count_temp,
             name=mediums_list[index],
             line=dict(width=3),
-            fill='tozeroy'
+            # fill='tozeroy'
         )
         traces.append(trace)
 
@@ -149,7 +149,7 @@ elif plot_choice == 'Average Monthly Impressions Made on All Media':
             y=impressions_avg_temp,
             name=mediums_list[index],
             line=dict(width=3),
-            fill='tozeroy'
+            # fill='tozeroy'
         )
         traces.append(trace)
     
@@ -192,7 +192,7 @@ elif plot_choice == 'Average Monthly Engagements Made on All Media':
             y=engagement_avg_temp,
             name=mediums_list[index],
             line=dict(width=3),
-            fill='tozeroy'
+            # fill='tozeroy'
         )
         traces.append(trace)
     
@@ -235,7 +235,7 @@ elif plot_choice == 'Average Monthly Engagements Rate Per Impression Made on All
             y=engagement_avg_temp,
             name=mediums_list[index],
             line=dict(width=3),
-            fill='tozeroy'
+            # fill='tozeroy'
         )
         traces.append(trace)
     
@@ -264,6 +264,14 @@ elif plot_choice == 'Average Monthly Engagements Rate Per Impression Made on All
 
 # Display the selected line plot
 st.plotly_chart(fig)
+
+# Posting Times
+st.markdown('### Metrics')
+col1, col2, col3, col4 = st.columns(4)
+col1.metric("Best Period To Post On Facebook", "Sunday, Tuesday, Friday", "8-12pm")
+col2.metric("Best Period To Post On Facebook", "Sunday, Tuesday, Friday", "8-12pm")
+col3.metric("Best Period To Post On Facebook", "Sunday, Tuesday, Friday", "8-12pm")
+col4.metric("Best Period To Post On Facebook", "Sunday, Tuesday, Friday", "8-12pm")
 
 
 # Heatmaps Section
