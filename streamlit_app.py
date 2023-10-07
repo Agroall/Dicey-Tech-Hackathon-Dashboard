@@ -113,10 +113,9 @@ col1.metric("Most Used Platform", "Instagram", "27% of posts")
 col2.metric("Most Viewed Platform", "Facebook", "5400 Average Impressions Per Post")
 col3.metric("Most Engaging Platform", "Facebook", "3% Average Engagement Rate Per Post")
 
-col1, col2 = st.columns(2)
+col1, col2, col3, col4 = st.columns(4)
 col1.metric("Most Engaged Content On Facebook", "Text", "380 Average Engagement Per Post")
 col2.metric("Most Engaged Content On Instagram", "Video", "140 Average Engagement Per Post")
-col3, col4 = st.columns(2)
 col3.metric("Most Engaged Content On Twitter", "Photo", "120 Average Engagement Per Post")
 col4.metric("Most Engaged Content On LInkedin", "Poll", "600 Average Engagement Per Post")
 
