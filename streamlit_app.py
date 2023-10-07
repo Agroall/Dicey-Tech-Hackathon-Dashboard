@@ -66,14 +66,15 @@ st.markdown(' ')
 
 st.sidebar.header("`Dicey Tech Hackathon`")
 
-# Time Series Analysis Dropdown
-st.sidebar.subheader('Time Series Analysis')
-plot_choice = st.sidebar.selectbox('Select metric to view', [
+
+# Platform Metrics Per Year
+st.sidebar.subheader('Platform Metrics Per Year')
+bar_choice = st.sidebar.selectbox('Select metric', [
     'Number of Posts',
     'Impressions',
-    'Engagements',
-    'Engagements Rate Per Impression'
+    'Engagements'
 ])
+
 
 # Heatmaps Dropdown
 st.sidebar.subheader('Best Times To Post')
@@ -94,12 +95,278 @@ content_choice = st.sidebar.selectbox(' Select platform', [
 ])
 
 
+# Time Series Analysis Dropdown
+st.sidebar.subheader('Time Series Analysis')
+plot_choice = st.sidebar.selectbox('Select metric to view', [
+    'Number of Posts',
+    'Impressions',
+    'Engagements',
+    'Engagements Rate Per Impression'
+])
+
+
 # Metrics
 st.markdown('### Metrics')
 col1, col2, col3 = st.columns(3)
 col1.metric("Most Used Platform", "Instagram", "27% of posts")
 col2.metric("Most Viewed Platform", "Facebook", "5400 Average Impressions Per Post")
-col3.metric("Most Engaging Platform", "Instagram", "% Average Impressions Per Post")
+col3.metric("Most Engaging Platform", "Facebook", "3% Average Engagement Rate Per Post")
+
+
+# Bar_chart_Section
+if bar_choice == 'Number of Posts':
+
+    for media in mediums:
+        media['year'] = media.Date.apply(lambda x: x.strftime('%Y'))
+        media.sort_values('Date', inplace=True)
+    
+    post_counts = {}
+    for index, media in enumerate(mediums):
+        post_count_temp = media.value_counts('year').sort_index()
+        post_counts[mediums_list[index]] = post_count_temp
+    
+    media_post_count = pd.DataFrame(post_counts)
+    media_post_count['year'] = media_post_count.index
+    
+    colors = ['rgb(31, 119, 180)', 'rgb(255, 127, 14)', 'rgb(44, 160, 44)',
+              'rgb(214, 39, 40)', 'rgb(148, 103, 189)', 'rgb(140, 86, 75)']
+    
+    data = []
+    for i, medium in enumerate(mediums_list):
+        trace = go.Bar(x=media_post_count['year'], y=media_post_count[medium], name=medium,
+                       marker_color=colors[i % len(colors)])
+        data.append(trace)
+    
+    layout = go.Layout(title='Total Yearly Amount Of Posts For All Media Groups',
+                       xaxis=dict(title='Year'),
+                       yaxis=dict(title='Post Count'),
+                       barmode='group')
+    
+    fig = go.Figure(data=data, layout=layout)
+    fig.show()
+
+
+
+elif bar_choice == 'Impressions':
+    for media in mediums_impression_temp:
+        media['year'] = media.Date.apply(lambda x: x.strftime('%Y'))
+        media.sort_values('Date', inplace=True)
+    
+    post_counts = {}
+    for index, media in enumerate(mediums_impression_temp):
+        impressions_sum_temp = media.groupby('year')['Impressions'].mean()
+        post_counts[mediums_list[index]] = impressions_sum_temp
+    
+    media_post_count = pd.DataFrame(post_counts)
+    media_post_count['year'] = media_post_count.index
+    
+    colors = ['rgb(31, 119, 180)', 'rgb(255, 127, 14)', 'rgb(44, 160, 44)',
+              'rgb(214, 39, 40)', 'rgb(148, 103, 189)', 'rgb(140, 86, 75)']
+    
+    data = []
+    for i, medium in enumerate(mediums_list):
+        trace = go.Bar(x=media_post_count['year'], y=media_post_count[medium], name=medium,
+                       marker_color=colors[i % len(colors)])
+        data.append(trace)
+    
+    layout = go.Layout(title='Total Yearly Average Impressions For All Media Groups',
+                       xaxis=dict(title='Year'),
+                       yaxis=dict(title='Impressions'),
+                       barmode='group')
+    
+    fig = go.Figure(data=data, layout=layout)
+    fig.show()
+
+
+elif bar_choice == 'Engagements':    
+    for media in mediums_impression_temp:
+        media['year'] = media.Date.apply(lambda x: x.strftime('%Y'))
+        media.sort_values('Date', inplace=True)
+    
+    post_counts = {}
+    for index, media in enumerate(mediums_impression_temp):
+        impressions_sum_temp = media.groupby('year')['Engagements'].mean()
+        post_counts[mediums_list[index]] = impressions_sum_temp
+    
+    media_post_count = pd.DataFrame(post_counts)
+    media_post_count['year'] = media_post_count.index
+    
+    colors = ['rgb(31, 119, 180)', 'rgb(255, 127, 14)', 'rgb(44, 160, 44)',
+              'rgb(214, 39, 40)', 'rgb(148, 103, 189)', 'rgb(140, 86, 75)']
+    
+    data = []
+    for i, medium in enumerate(mediums_list):
+        trace = go.Bar(x=media_post_count['year'], y=media_post_count[medium], name=medium,
+                       marker_color=colors[i % len(colors)])
+        data.append(trace)
+    
+    layout = go.Layout(title='Total Yearly Average Engagements For All Media Groups',
+                       xaxis=dict(title='Year'),
+                       yaxis=dict(title='Engagements'),
+                       barmode='group')
+    
+    fig = go.Figure(data=data, layout=layout)
+    fig.show()
+
+    
+
+st.markdown('### Metrics')
+col1, col2 = st.columns(2)
+col1.metric("Best Period To Post On Facebook", "Saturday, Monnday, Friday", "8-12pm")
+col2.metric("Best Period To Post On Instagram", "Sunday, Saturday, Friday", "9pm-2am")
+col3, col4 = st.columns(2)
+col3.metric("Best Period To Post On Twitter", "Sunday, Wednesday, Thursday", "8-12pm")
+col4.metric("Best Period To Post On LInkedin", "Saturday, Sunday, Monday", "")
+
+
+# Posting Times
+st.markdown('### Best Times To Post By Average Impression')
+
+
+# Heatmaps Section
+if heatmap_choice == 'Facebook':
+    heatmap_data = pd.pivot_table(fb_reduced, values='Impressions', index='day_of_week', columns='hour', aggfunc='median')
+    heatmap_data = heatmap_data.reindex(['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'])
+
+    heatmap_data = heatmap_data[heatmap_data < (heatmap_data.mean() * 2.5)]
+
+    fig = go.Figure(data=go.Heatmap(
+        z=heatmap_data.values,
+        x=heatmap_data.columns,
+        y=heatmap_data.index,
+        colorscale='Blues'
+    ))
+
+    fig.update_layout(
+        title=f'Facebook',
+        xaxis=dict(title='Hour'),
+        yaxis=dict(title='Day of Week'),
+        height=800, # Increase the height of the chart
+        width=1200 # Increase the width of the chart
+    )
+
+    st.plotly_chart(fig)
+
+
+elif heatmap_choice == 'Instagram':
+    heatmap_data = pd.pivot_table(ig_reduced, values='Impressions', index='day_of_week', columns='hour', aggfunc='median')
+    heatmap_data = heatmap_data.reindex(['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'])
+
+    heatmap_data = heatmap_data[heatmap_data < (heatmap_data.mean() * 2.5)]
+
+    fig = go.Figure(data=go.Heatmap(
+        z=heatmap_data.values,
+        x=heatmap_data.columns,
+        y=heatmap_data.index,
+        colorscale='Blues'
+    ))
+
+    fig.update_layout(
+        title=f'Best Time To Post on Instagram By Impressions',
+        xaxis=dict(title='Hour'),
+        yaxis=dict(title='Day of Week'),
+        height=800, # Increase the height of the chart
+        width=1200 # Increase the width of the chart
+    )
+
+    st.plotly_chart(fig)
+
+
+elif heatmap_choice == 'Twitter':
+    heatmap_data = pd.pivot_table(tw_reduced, values='Impressions', index='day_of_week', columns='hour', aggfunc='median')
+    heatmap_data = heatmap_data.reindex(['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'])
+
+    heatmap_data = heatmap_data[heatmap_data < (heatmap_data.mean() * 2.5)]
+
+    fig = go.Figure(data=go.Heatmap(
+        z=heatmap_data.values,
+        x=heatmap_data.columns,
+        y=heatmap_data.index,
+        colorscale='Blues'
+    ))
+
+    fig.update_layout(
+        title=f'Best Time To Post on Twitter By Impressions',
+        xaxis=dict(title='Hour'),
+        yaxis=dict(title='Day of Week'),
+        height=800, # Increase the height of the chart
+        width=1200 # Increase the width of the chart
+    )
+
+    st.plotly_chart(fig)
+
+
+elif heatmap_choice == 'Linkedin':
+    heatmap_data = pd.pivot_table(ln_reduced, values='Impressions', index='day_of_week', columns='hour', aggfunc='median')
+    heatmap_data = heatmap_data.reindex(['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'])
+
+    heatmap_data = heatmap_data[heatmap_data < (heatmap_data.mean() * 2.5)]
+
+    fig = go.Figure(data=go.Heatmap(
+        z=heatmap_data.values,
+        x=heatmap_data.columns,
+        y=heatmap_data.index,
+        colorscale='Blues'
+    ))
+
+    fig.update_layout(
+        title=f'Best Time To Post on Linkedin By Impressions',
+        xaxis=dict(title='Hour'),
+        yaxis=dict(title='Day of Week'),
+        height=800, # Increase the height of the chart
+        width=1200 # Increase the width of the chart
+    )
+    
+    st.plotly_chart(fig)
+
+
+# Content Type
+if content_choice == 'Facebook':
+    rr=[]
+    for content in fb_reduced['Content Type'].unique():
+        re = fb_reduced[fb_reduced['Content Type']==content]['Engagements'].mean()
+        rr.append(re)
+    fig = go.Figure([go.Bar(x=fb_reduced['Content Type'].unique(), y=rr)])
+    fig.update_layout(title=f'Average Engagement By Content Type For Facebook', xaxis_title='Content Type', yaxis_title='Engagements')
+    fig.show()
+
+    st.plotly_chart(fig)
+
+
+elif content_choice == 'Instagram':
+    rr=[]
+    for content in ig_reduced['Content Type'].unique():
+        re = ig_reduced[ig_reduced['Content Type']==content]['Engagements'].mean()
+        rr.append(re)
+    fig = go.Figure([go.Bar(x=ig_reduced['Content Type'].unique(), y=rr)])
+    fig.update_layout(title=f'Average Engagement By Content Type For Instagram', xaxis_title='Content Type', yaxis_title='Engagements')
+    fig.show()
+
+    st.plotly_chart(fig)
+
+
+elif content_choice == 'Twitter':
+    rr=[]
+    for content in tw_reduced['Content Type'].unique():
+        re = tw_reduced[tw_reduced['Content Type']==content]['Engagements'].mean()
+        rr.append(re)
+    fig = go.Figure([go.Bar(x=tw_reduced['Content Type'].unique(), y=rr)])
+    fig.update_layout(title=f'Average Engagement By Content Type For Twitter', xaxis_title='Content Type', yaxis_title='Engagements')
+    fig.show()
+
+    st.plotly_chart(fig)
+
+
+elif content_choice == 'Linkedin':
+    rr=[]
+    for content in ln_reduced['Content Type'].unique():
+        re = ln_reduced[ln_reduced['Content Type']==content]['Engagements'].mean()
+        rr.append(re)
+    fig = go.Figure([go.Bar(x=ln_reduced['Content Type'].unique(), y=rr)])
+    fig.update_layout(title=f'Average Engagement By Content Type For Linkedin', xaxis_title='Content Type', yaxis_title='Engagements')
+    fig.show()
+
+    st.plotly_chart(fig)
 
 
 # Time Series Analysis Section#
@@ -277,163 +544,6 @@ elif plot_choice == 'Engagements Rate Per Impression':
 st.plotly_chart(fig)
 
 
-st.markdown('### Metrics')
-col1, col2 = st.columns(2)
-col1.metric("Best Period To Post On Facebook", "Saturday, Monnday, Friday", "8-12pm")
-col2.metric("Best Period To Post On Instagram", "Sunday, Saturday, Friday", "9pm-2am")
-col3, col4 = st.columns(2)
-col3.metric("Best Period To Post On Twitter", "Sunday, Wednesday, Thursday", "8-12pm")
-col4.metric("Best Period To Post On LInkedin", "Saturday, Sunday, Monday", "")
-
-
-# Posting Times
-st.markdown('### Best Times To Post By Average Impression')
-
-
-# Heatmaps Section
-if heatmap_choice == 'Facebook':
-    heatmap_data = pd.pivot_table(fb_reduced, values='Impressions', index='day_of_week', columns='hour', aggfunc='median')
-    heatmap_data = heatmap_data.reindex(['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'])
-
-    heatmap_data = heatmap_data[heatmap_data < (heatmap_data.mean() * 2.5)]
-
-    fig = go.Figure(data=go.Heatmap(
-        z=heatmap_data.values,
-        x=heatmap_data.columns,
-        y=heatmap_data.index,
-        colorscale='Blues'
-    ))
-
-    fig.update_layout(
-        title=f'Facebook',
-        xaxis=dict(title='Hour'),
-        yaxis=dict(title='Day of Week'),
-        height=800, # Increase the height of the chart
-        width=1200 # Increase the width of the chart
-    )
-
-    st.plotly_chart(fig)
-
-
-elif heatmap_choice == 'Instagram':
-    heatmap_data = pd.pivot_table(ig_reduced, values='Impressions', index='day_of_week', columns='hour', aggfunc='median')
-    heatmap_data = heatmap_data.reindex(['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'])
-
-    heatmap_data = heatmap_data[heatmap_data < (heatmap_data.mean() * 2.5)]
-
-    fig = go.Figure(data=go.Heatmap(
-        z=heatmap_data.values,
-        x=heatmap_data.columns,
-        y=heatmap_data.index,
-        colorscale='Blues'
-    ))
-
-    fig.update_layout(
-        title=f'Best Time To Post on Instagram By Impressions',
-        xaxis=dict(title='Hour'),
-        yaxis=dict(title='Day of Week'),
-        height=800, # Increase the height of the chart
-        width=1200 # Increase the width of the chart
-    )
-
-    st.plotly_chart(fig)
-
-
-elif heatmap_choice == 'Twitter':
-    heatmap_data = pd.pivot_table(tw_reduced, values='Impressions', index='day_of_week', columns='hour', aggfunc='median')
-    heatmap_data = heatmap_data.reindex(['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'])
-
-    heatmap_data = heatmap_data[heatmap_data < (heatmap_data.mean() * 2.5)]
-
-    fig = go.Figure(data=go.Heatmap(
-        z=heatmap_data.values,
-        x=heatmap_data.columns,
-        y=heatmap_data.index,
-        colorscale='Blues'
-    ))
-
-    fig.update_layout(
-        title=f'Best Time To Post on Twitter By Impressions',
-        xaxis=dict(title='Hour'),
-        yaxis=dict(title='Day of Week'),
-        height=800, # Increase the height of the chart
-        width=1200 # Increase the width of the chart
-    )
-
-    st.plotly_chart(fig)
-
-
-elif heatmap_choice == 'Linkedin':
-    heatmap_data = pd.pivot_table(ln_reduced, values='Impressions', index='day_of_week', columns='hour', aggfunc='median')
-    heatmap_data = heatmap_data.reindex(['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'])
-
-    heatmap_data = heatmap_data[heatmap_data < (heatmap_data.mean() * 2.5)]
-
-    fig = go.Figure(data=go.Heatmap(
-        z=heatmap_data.values,
-        x=heatmap_data.columns,
-        y=heatmap_data.index,
-        colorscale='Blues'
-    ))
-
-    fig.update_layout(
-        title=f'Best Time To Post on Linkedin By Impressions',
-        xaxis=dict(title='Hour'),
-        yaxis=dict(title='Day of Week'),
-        height=800, # Increase the height of the chart
-        width=1200 # Increase the width of the chart
-    )
-    
-    st.plotly_chart(fig)
-    
-
-# Content Type
-if content_choice == 'Facebook':
-    rr=[]
-    for content in fb_reduced['Content Type'].unique():
-        re = fb_reduced[fb_reduced['Content Type']==content]['Engagements'].mean()
-        rr.append(re)
-    fig = go.Figure([go.Bar(x=fb_reduced['Content Type'].unique(), y=rr)])
-    fig.update_layout(title=f'Average Engagement By Content Type For Facebook', xaxis_title='Content Type', yaxis_title='Engagements')
-    fig.show()
-
-    st.plotly_chart(fig)
-
-
-elif content_choice == 'Instagram':
-    rr=[]
-    for content in ig_reduced['Content Type'].unique():
-        re = ig_reduced[ig_reduced['Content Type']==content]['Engagements'].mean()
-        rr.append(re)
-    fig = go.Figure([go.Bar(x=ig_reduced['Content Type'].unique(), y=rr)])
-    fig.update_layout(title=f'Average Engagement By Content Type For Instagram', xaxis_title='Content Type', yaxis_title='Engagements')
-    fig.show()
-
-    st.plotly_chart(fig)
-
-
-elif content_choice == 'Twitter':
-    rr=[]
-    for content in tw_reduced['Content Type'].unique():
-        re = tw_reduced[tw_reduced['Content Type']==content]['Engagements'].mean()
-        rr.append(re)
-    fig = go.Figure([go.Bar(x=tw_reduced['Content Type'].unique(), y=rr)])
-    fig.update_layout(title=f'Average Engagement By Content Type For Twitter', xaxis_title='Content Type', yaxis_title='Engagements')
-    fig.show()
-
-    st.plotly_chart(fig)
-
-
-elif content_choice == 'Linkedin':
-    rr=[]
-    for content in ln_reduced['Content Type'].unique():
-        re = ln_reduced[ln_reduced['Content Type']==content]['Engagements'].mean()
-        rr.append(re)
-    fig = go.Figure([go.Bar(x=ln_reduced['Content Type'].unique(), y=rr)])
-    fig.update_layout(title=f'Average Engagement By Content Type For Linkedin', xaxis_title='Content Type', yaxis_title='Engagements')
-    fig.show()
-
-    st.plotly_chart(fig)
 
 
 st.sidebar.markdown('''
