@@ -86,9 +86,9 @@ heatmap_choice = st.sidebar.selectbox('Select metric to view', [
 # Metrics
 st.markdown('### Metrics')
 col1, col2, col3 = st.columns(3)
-col1.metric("Most Used Platform", "Facebook", "10% of posts")
-col2.metric("Most Used Platform", "Facebook", "10%")
-col3.metric("Most Used Platform", "Facebook", "10%")
+col1.metric("Most Used Platform", "X", "X% of posts")
+col2.metric("Most Viewed Platform", "X", "X Average Impressions Per Post")
+col3.metric("Most Engaging Platform", "X", "X% Average Impressions Per Post")
 
 
 # Time Series Analysis Section#
