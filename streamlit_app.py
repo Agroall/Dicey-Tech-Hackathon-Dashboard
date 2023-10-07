@@ -1,3 +1,4 @@
+# Packages
 import streamlit as st
 import pandas as pd
 import seaborn as sns
@@ -6,13 +7,12 @@ import plotly.express as px
 from plotly import graph_objs as go
 
 
+# Configuration
 st.set_page_config(layout='wide', initial_sidebar_state='expanded')
-
 with open('style.css') as f:
     st.markdown(f'<style>(f.read())</style>', unsafe_allow_html=True)
 
-st.sidebar.header("`Dicey Tech Hackathon`")
-                  
+
 # Data
 fb_reduced = pd.read_csv('Dicey/fb_reduced') 
 fb_reduced_engaged = pd.read_csv('Dicey/fb_reduced_engaged') 
@@ -28,11 +28,14 @@ ig_reduced_engaged = pd.read_csv('Dicey/ig_reduced_engaged')
 ig_reduced_impressed = pd.read_csv('Dicey/ig_reduced_impressed') 
 
 
+# Data Lists
 mediums = [fb_reduced, ig_reduced, tw_reduced, ln_reduced]
 mediums_impression_temp = [fb_reduced_impressed, ig_reduced_impressed, tw_reduced_impressed, ln_reduced_impressed]
 mediums_engagement_temp = [fb_reduced_engaged, ig_reduced_engaged, tw_reduced_engaged, ln_reduced_engaged]
 mediums_list = ['Facebook', 'Instagram', 'Twitter', 'Linkedin']
 
+
+# Data Cleaning
 for lister in [mediums, mediums_impression_temp, mediums_engagement_temp]:
     for media in lister:
         media['Date'] = pd.to_datetime(media['Date'], format='%m/%d/%Y %I:%M %p')
@@ -56,24 +59,30 @@ for lister in [mediums, mediums_impression_temp, mediums_engagement_temp]:
                     continue
 
 
-        
-
 # Streamlit app
-# def app():
 st.title('`Dicey Tech Hackathon Dashboard`')
 
-# Add a dropdown to select the line plot
-st.sidebar.subheader('Time Series Analysis')
-st.markdown('### Time Series Analysis')
+st.sidebar.header("`Dicey Tech Hackathon`")
 
-plot_choice = st.selectbox('Select metric to view', [
+# Time Series Analysis Dropdown
+st.sidebar.subheader('Time Series Analysis')
+plot_choice = st.sidebar.selectbox('Select metric to view', [
     'Number of Posts Made on All Media Platforms',
     'Average Monthly Impressions Made on All Media',
     'Average Monthly Engagements Made on All Media',
     'Average Monthly Engagements Rate Per Impression Made on All Media'
-
 ])
-# Create the selected line plot
+
+# Heatmaps Dropdown
+st.sidebar.subheader('Heatmaps')
+heatmap_choice = st.sidebar.selectbox('Select metric to view', [
+    'Heatmap of Values by Day of Week and Hour for Facebook',
+    'Heatmap of Values by Day of Week and Hour for Instagram',
+    'Heatmap of Values by Day of Week and Hour for Twitter',
+    'Heatmap of Values by Day of Week and Hour for Linkedin',
+])
+
+# Time Series Analysis Section
 if plot_choice == 'Number of Posts Made on All Media Platforms':
     traces = []
 
@@ -243,24 +252,12 @@ elif plot_choice == 'Average Monthly Engagements Rate Per Impression Made on All
     fig = go.Figure(data=traces, layout=layout)
     fig.show()
 
-
 # Display the selected line plot
 st.plotly_chart(fig)
 
 
-
-st.markdown('### Heatmaps')
-
-heatmap_choice = st.selectbox('Select metric to view', [
-    'Heatmap of Values by Day of Week and Hour for Facebook',
-    'Heatmap of Values by Day of Week and Hour for Instagram',
-    'Heatmap of Values by Day of Week and Hour for Twitter',
-    'Heatmap of Values by Day of Week and Hour for Linkedin',
-])
-
-                              
+# Heatmaps Section
 if heatmap_choice == 'Heatmap of Values by Day of Week and Hour for Facebook':
-    # Code for Facebook heatmap ...
     heatmap_data = pd.pivot_table(fb_reduced, values='Impressions', index='day_of_week', columns='hour')
     heatmap_data = heatmap_data.reindex(['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'])
 
@@ -283,8 +280,8 @@ if heatmap_choice == 'Heatmap of Values by Day of Week and Hour for Facebook':
 
     st.plotly_chart(fig)
 
+
 elif heatmap_choice == 'Heatmap of Values by Day of Week and Hour for Instagram':
-    # Code for Instagram heatmap ...
     heatmap_data = pd.pivot_table(ig_reduced, values='Impressions', index='day_of_week', columns='hour')
     heatmap_data = heatmap_data.reindex(['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'])
 
@@ -308,9 +305,7 @@ elif heatmap_choice == 'Heatmap of Values by Day of Week and Hour for Instagram'
     st.plotly_chart(fig)
 
 
-
 elif heatmap_choice == 'Heatmap of Values by Day of Week and Hour for Twitter':
-    # Code for Twitter heatmap ...
     heatmap_data = pd.pivot_table(tw_reduced, values='Impressions', index='day_of_week', columns='hour')
     heatmap_data = heatmap_data.reindex(['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'])
 
@@ -333,8 +328,8 @@ elif heatmap_choice == 'Heatmap of Values by Day of Week and Hour for Twitter':
 
     st.plotly_chart(fig)
 
+
 elif heatmap_choice == 'Heatmap of Values by Day of Week and Hour for Linkedin':
-    # Code for Linkedin heatmap ...
     heatmap_data = pd.pivot_table(ln_reduced, values='Impressions', index='day_of_week', columns='hour')
     heatmap_data = heatmap_data.reindex(['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'])
 
@@ -358,12 +353,7 @@ elif heatmap_choice == 'Heatmap of Values by Day of Week and Hour for Linkedin':
     st.plotly_chart(fig)
 
 
-
 st.sidebar.markdown('''
 ---
 Created By Abatan Ayodeji (Agroall) For Dicey Tech Hackathon.
 ''')
-
-# # Run the Streamlit app
-# if __name__ == '__main__':
-#     app()
