@@ -97,8 +97,8 @@ content_choice = st.sidebar.selectbox(' Select platform', [
 # Metrics
 st.markdown('### Metrics')
 col1, col2, col3 = st.columns(3)
-col1.metric("Most Used Platform", "Instagram", "27.5% of posts")
-col2.metric("Most Viewed Platform", "Facebook", "X Average Impressions Per Post")
+col1.metric("Most Used Platform", "X", "X% of posts")
+col2.metric("Most Viewed Platform", "X", "X Average Impressions Per Post")
 col3.metric("Most Engaging Platform", "X", "X% Average Impressions Per Post")
 
 
@@ -282,10 +282,10 @@ st.markdown('### Best Times To Post')
 st.markdown('### Metrics')
 col1, col2 = st.columns(2)
 col1.metric("Best Period To Post On Facebook", "Sunday, Tuesday, Friday", "8-12pm")
-col2.metric("Best Period To Post On Instagram", "Sunday, Saturday, Friday", "8-12pm")
+col2.metric("Best Period To Post On Facebook", "Sunday, Tuesday, Friday", "8-12pm")
 col3, col4 = st.columns(2)
-col3.metric("Best Period To Post On Twitter", "Sunday, Monday, Wendesday", "8-12pm")
-col4.metric("Best Period To Post On Linkedin", "Thursday, Saturday", "8-12pm")
+col3.metric("Best Period To Post On Facebook", "Sunday, Tuesday, Friday", "8-12pm")
+col4.metric("Best Period To Post On Facebook", "Sunday, Tuesday, Friday", "8-12pm")
 
 
 # Heatmaps Section
