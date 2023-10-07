@@ -231,7 +231,7 @@ elif plot_choice == 'Engagements':
     fig.show()
 
 
-elif plot_choice == 'Engagements':
+elif plot_choice == 'Engagements Rate Per Impression':
     traces = []
 
     start_date = min(media['year_month'].min() for media in mediums)
@@ -274,7 +274,7 @@ elif plot_choice == 'Engagements':
     fig.show()
 
 # Display the selected line plot
-# st.plotly_chart(fig)
+st.plotly_chart(fig)
 
 
 st.markdown('### Metrics')
