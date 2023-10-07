@@ -267,9 +267,10 @@ st.plotly_chart(fig)
 
 # Posting Times
 st.markdown('### Metrics')
-col1, col2, col3, col4 = st.columns(4)
+col1, col2 = st.columns(2)
 col1.metric("Best Period To Post On Facebook", "Sunday, Tuesday, Friday", "8-12pm")
 col2.metric("Best Period To Post On Facebook", "Sunday, Tuesday, Friday", "8-12pm")
+col3, col4 = st.columns(2)
 col3.metric("Best Period To Post On Facebook", "Sunday, Tuesday, Friday", "8-12pm")
 col4.metric("Best Period To Post On Facebook", "Sunday, Tuesday, Friday", "8-12pm")
 
