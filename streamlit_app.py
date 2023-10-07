@@ -290,7 +290,7 @@ col4.metric("Best Period To Post On Facebook", "Sunday, Tuesday, Friday", "8-12p
 
 # Heatmaps Section
 if heatmap_choice == 'Facebook':
-    heatmap_data = pd.pivot_table(fb_reduced, values='Impressions', index='day_of_week', columns='hour')
+    heatmap_data = pd.pivot_table(fb_reduced, values='Impressions', index='day_of_week', columns='hour', aggfunc='median')
     heatmap_data = heatmap_data.reindex(['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'])
 
     heatmap_data = heatmap_data[heatmap_data < (heatmap_data.mean() * 2.5)]
@@ -314,7 +314,7 @@ if heatmap_choice == 'Facebook':
 
 
 elif heatmap_choice == 'Instagram':
-    heatmap_data = pd.pivot_table(ig_reduced, values='Impressions', index='day_of_week', columns='hour')
+    heatmap_data = pd.pivot_table(ig_reduced, values='Impressions', index='day_of_week', columns='hour', aggfunc='median')
     heatmap_data = heatmap_data.reindex(['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'])
 
     heatmap_data = heatmap_data[heatmap_data < (heatmap_data.mean() * 2.5)]
@@ -338,7 +338,7 @@ elif heatmap_choice == 'Instagram':
 
 
 elif heatmap_choice == 'Twitter':
-    heatmap_data = pd.pivot_table(tw_reduced, values='Impressions', index='day_of_week', columns='hour')
+    heatmap_data = pd.pivot_table(tw_reduced, values='Impressions', index='day_of_week', columns='hour', aggfunc='median')
     heatmap_data = heatmap_data.reindex(['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'])
 
     heatmap_data = heatmap_data[heatmap_data < (heatmap_data.mean() * 2.5)]
@@ -362,7 +362,7 @@ elif heatmap_choice == 'Twitter':
 
 
 elif heatmap_choice == 'Linkedin':
-    heatmap_data = pd.pivot_table(ln_reduced, values='Impressions', index='day_of_week', columns='hour')
+    heatmap_data = pd.pivot_table(ln_reduced, values='Impressions', index='day_of_week', columns='hour', aggfunc='median')
     heatmap_data = heatmap_data.reindex(['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'])
 
     heatmap_data = heatmap_data[heatmap_data < (heatmap_data.mean() * 2.5)]
