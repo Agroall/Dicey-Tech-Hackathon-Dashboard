@@ -208,6 +208,7 @@ elif bar_choice == 'Engagements':
     fig = go.Figure(data=data, layout=layout)
     fig.show()
 
+st.plotly_chart(fig)
     
 
 st.markdown('### Metrics')
