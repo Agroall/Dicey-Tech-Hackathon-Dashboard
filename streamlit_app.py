@@ -247,6 +247,10 @@ elif plot_choice == 'Average Monthly Engagements Rate Per Impression Made on All
 # Display the selected line plot
 st.plotly_chart(fig)
 
+
+
+st.markdown('### Heatmaps')
+
 heatmap_choice = st.selectbox('Select metric to view', [
     'Heatmap of Values by Day of Week and Hour for Facebook',
     'Heatmap of Values by Day of Week and Hour for Instagram',
@@ -255,9 +259,6 @@ heatmap_choice = st.selectbox('Select metric to view', [
 ]
 
                               
-# st.markdown('### Time Series Analysis')
-
-# st.markdown('### Time Series Analysis')
 if heatmap_choice == 'Heatmap of Values by Day of Week and Hour for Facebook':
     # Code for Facebook heatmap ...
     heatmap_data = pd.pivot_table(fb_reduced, values='Impressions', index='day_of_week', columns='hour')
