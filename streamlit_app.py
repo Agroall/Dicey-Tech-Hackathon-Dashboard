@@ -276,7 +276,9 @@ if heatmap_choice == 'Heatmap of Values by Day of Week and Hour for Facebook':
     fig.update_layout(
         title=f'Heatmap of Values by Day of Week and Hour for Facebook',
         xaxis=dict(title='Hour'),
-        yaxis=dict(title='Day of Week')
+        yaxis=dict(title='Day of Week'),
+        height=800, # Increase the height of the chart
+        width=1200 # Increase the width of the chart
     )
 
     st.plotly_chart(fig)
@@ -298,7 +300,9 @@ elif heatmap_choice == 'Heatmap of Values by Day of Week and Hour for Instagram'
     fig.update_layout(
         title=f'Heatmap of Values by Day of Week and Hour for Instagram',
         xaxis=dict(title='Hour'),
-        yaxis=dict(title='Day of Week')
+        yaxis=dict(title='Day of Week'),
+        height=800, # Increase the height of the chart
+        width=1200 # Increase the width of the chart
     )
 
     st.plotly_chart(fig)
@@ -322,7 +326,9 @@ elif heatmap_choice == 'Heatmap of Values by Day of Week and Hour for Twitter':
     fig.update_layout(
         title=f'Heatmap of Values by Day of Week and Hour for Twitter',
         xaxis=dict(title='Hour'),
-        yaxis=dict(title='Day of Week')
+        yaxis=dict(title='Day of Week'),
+        height=800, # Increase the height of the chart
+        width=1200 # Increase the width of the chart
     )
 
     st.plotly_chart(fig)
@@ -344,7 +350,9 @@ elif heatmap_choice == 'Heatmap of Values by Day of Week and Hour for Linkedin':
     fig.update_layout(
         title=f'Heatmap of Values by Day of Week and Hour for Linkedin',
         xaxis=dict(title='Hour'),
-        yaxis=dict(title='Day of Week')
+        yaxis=dict(title='Day of Week'),
+        height=800, # Increase the height of the chart
+        width=1200 # Increase the width of the chart
     )
 
     st.plotly_chart(fig)
