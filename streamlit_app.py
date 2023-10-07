@@ -82,7 +82,17 @@ heatmap_choice = st.sidebar.selectbox('Select metric to view', [
     'Heatmap of Values by Day of Week and Hour for Linkedin',
 ])
 
-# Time Series Analysis Section
+
+# Metrics
+st.markdown('### Metrics')
+col1, col2, col3 = st.columns(3)
+col1.metrics("Most Used Platform", "Facebook", "10%")
+col2.metrics("Most Used Platform", "Facebook", "10%")
+col3.metrics("Most Used Platform", "Facebook", "10%")
+
+
+# Time Series Analysis Section#
+st.markdown('### Time Series Analysis')
 if plot_choice == 'Number of Posts Made on All Media Platforms':
     traces = []
 
@@ -257,6 +267,7 @@ st.plotly_chart(fig)
 
 
 # Heatmaps Section
+st.markdown('### Heatmaps')
 if heatmap_choice == 'Heatmap of Values by Day of Week and Hour for Facebook':
     heatmap_data = pd.pivot_table(fb_reduced, values='Impressions', index='day_of_week', columns='hour')
     heatmap_data = heatmap_data.reindex(['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'])
