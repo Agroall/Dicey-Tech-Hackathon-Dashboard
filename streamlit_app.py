@@ -634,6 +634,5 @@ st.plotly_chart(fig)
 
 
 st.sidebar.markdown('''
----
 Created By Abatan Ayodeji (Agroall) For Dicey Tech Hackathon.
 ''')
