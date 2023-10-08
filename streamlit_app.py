@@ -115,6 +115,9 @@ plot_choice = st.sidebar.selectbox('Select metric to view', [
 ])
 
 
+st.sidebar.markdown('---')
+
+
 # Metrics
 st.markdown('### Performance Summary')
 col1, col2, col3 = st.columns(3)
@@ -162,7 +165,7 @@ if bar_choice == 'Number of Posts':
                             bordercolor='rgba(255, 255, 255, 0)'
                         ),
                         height=800, # Increase the height of the chart
-                        width=1200 # Increase the width of the chart
+                        width=1000 # Increase the width of the chart
                                       )
     
     fig = go.Figure(data=data, layout=layout)
@@ -203,7 +206,7 @@ elif bar_choice == 'Impressions':
                             bordercolor='rgba(255, 255, 255, 0)'
                         ),
                         height=800, # Increase the height of the chart
-                        width=1200 # Increase the width of the chart
+                        width=1000 # Increase the width of the chart
                       )
     
     fig = go.Figure(data=data, layout=layout)
@@ -243,14 +246,18 @@ elif bar_choice == 'Engagements':
                             bordercolor='rgba(255, 255, 255, 0)'
                         ),
                         height=800, # Increase the height of the chart
-                        width=1200 # Increase the width of the chart
+                        width=1000 # Increase the width of the chart
                       )
     
     fig = go.Figure(data=data, layout=layout)
     fig.show()
 
 st.plotly_chart(fig)
-    
+
+
+st.sidebar.markdown('---')
+
+
 st.markdown('### Most Engaging Contents')
 col1, col2, col3, col4 = st.columns(4)
 col1.metric("Most Engaged Content On Facebook", "Text", "380 Average Engagement Per Post")
@@ -287,7 +294,7 @@ elif content_choice == 'Instagram':
     fig = go.Figure([go.Bar(x=ig_reduced['Content Type'].unique(), y=rr)])
     fig.update_layout(title=f'Average Engagement By Content Type For Instagram', xaxis_title='Content Type', yaxis_title='Engagements',
                         height=800, # Increase the height of the chart
-                        width=1200 # Increase the width of the chart
+                        width=1000 # Increase the width of the chart
                      )
     fig.show()
 
@@ -302,7 +309,7 @@ elif content_choice == 'Twitter':
     fig = go.Figure([go.Bar(x=tw_reduced['Content Type'].unique(), y=rr)])
     fig.update_layout(title=f'Average Engagement By Content Type For Twitter', xaxis_title='Content Type', yaxis_title='Engagements',
                         height=800, # Increase the height of the chart
-                        width=1200 # Increase the width of the chart
+                        width=1000 # Increase the width of the chart
                      )
     fig.show()
 
@@ -322,12 +329,15 @@ elif content_choice == 'Linkedin':
     fig = go.Figure([go.Bar(x=lister, y=rr)])
     fig.update_layout(title=f'Average Engagement By Content Type For Linkedin', xaxis_title='Content Type', yaxis_title='Engagements',
                         height=800, # Increase the height of the chart
-                        width=1200 # Increase the width of the chart
+                        width=1000 # Increase the width of the chart
                      )
     fig.show()
 
     st.plotly_chart(fig)
-    
+
+
+st.sidebar.markdown('---')
+
 
 st.markdown('### Best Time To Posts')
 col1, col2 = st.columns(2)
@@ -365,7 +375,7 @@ if heatmap_choice == 'Facebook':
         xaxis=dict(title='Hour'),
         yaxis=dict(title='Day of Week'),
         height=800, # Increase the height of the chart
-        width=1200 # Increase the width of the chart
+        width=1000 # Increase the width of the chart
     )
 
     st.plotly_chart(fig)
@@ -389,7 +399,7 @@ elif heatmap_choice == 'Instagram':
         xaxis=dict(title='Hour'),
         yaxis=dict(title='Day of Week'),
         height=800, # Increase the height of the chart
-        width=1200 # Increase the width of the chart
+        width=1000 # Increase the width of the chart
     )
 
     st.plotly_chart(fig)
@@ -413,7 +423,7 @@ elif heatmap_choice == 'Twitter':
         xaxis=dict(title='Hour'),
         yaxis=dict(title='Day of Week'),
         height=800, # Increase the height of the chart
-        width=1200 # Increase the width of the chart
+        width=1000 # Increase the width of the chart
     )
 
     st.plotly_chart(fig)
@@ -437,10 +447,13 @@ elif heatmap_choice == 'Linkedin':
         xaxis=dict(title='Hour'),
         yaxis=dict(title='Day of Week'),
         height=800, # Increase the height of the chart
-        width=1200 # Increase the width of the chart
+        width=1000 # Increase the width of the chart
     )
     
     st.plotly_chart(fig)
+
+
+st.sidebar.markdown('---')
 
 
 # Time Series Analysis Section#
@@ -479,7 +492,7 @@ if plot_choice == 'Number of Posts':
         plot_bgcolor='white',
         paper_bgcolor='white',
         height=800, # Increase the height of the chart
-        width=1200 # Increase the width of the chart
+        width=1000 # Increase the width of the chart
     )
 
     # Create the figure object and plot the chart
@@ -521,7 +534,7 @@ elif plot_choice == 'Impressions':
         plot_bgcolor='white',
         paper_bgcolor='white',
         height=800,
-        width=1200
+        width=1000
     )
     
     # Create the figure object and plot the chart
@@ -564,7 +577,7 @@ elif plot_choice == 'Engagements':
         plot_bgcolor='white',
         paper_bgcolor='white',
         height=800,
-        width=1200
+        width=1000
     )
     
     # Create the figure object and plot the chart
@@ -607,7 +620,7 @@ elif plot_choice == 'Engagements Rate Per Impression':
         plot_bgcolor='white',
         paper_bgcolor='white',
         height=800,
-        width=1200
+        width=1000
     )
     
     # Create the figure object and plot the chart
@@ -621,6 +634,5 @@ st.plotly_chart(fig)
 
 
 st.sidebar.markdown('''
----
 Created By Abatan Ayodeji (Agroall) For Dicey Tech Hackathon.
 ''')
