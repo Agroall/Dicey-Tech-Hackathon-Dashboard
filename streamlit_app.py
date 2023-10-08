@@ -60,8 +60,7 @@ for lister in [mediums, mediums_impression_temp, mediums_engagement_temp]:
 
 
 # Streamlit app
-# st.title("`Dicey Tech Hackathon Dashboard`")
-st.markdown("<h1 style='text-align: center; color: green; background-color: gray;'>Dicey Tech Hackathon Dashboard</h1>", unsafe_allow_html=True)
+st.title("`Dicey Tech Hackathon Dashboard`")
 st.markdown(' ')
 st.markdown(' ')
 
@@ -77,6 +76,18 @@ bar_choice = st.sidebar.selectbox('Select metric', [
 ])
 
 
+# Content Type
+st.sidebar.subheader('Average Engagement By Content Type')
+content_choice = st.sidebar.selectbox(' Select platform', [
+    'Facebook',
+    'Instagram',
+    'Twitter',
+    'Linkedin'
+])
+
+
+st.sidebar.markdown('---')
+
 
 # Heatmaps Dropdown
 st.sidebar.subheader('Best Times To Post')
@@ -87,14 +98,8 @@ heatmap_choice = st.sidebar.selectbox('Select platform', [
     'Linkedin',
 ])
 
-# Content Type
-st.sidebar.subheader('Average Engagement By Content Type')
-content_choice = st.sidebar.selectbox(' Select platform', [
-    'Facebook',
-    'Instagram',
-    'Twitter',
-    'Linkedin'
-])
+
+st.sidebar.markdown('---')
 
 
 # Time Series Analysis Dropdown
@@ -108,11 +113,15 @@ plot_choice = st.sidebar.selectbox('Select metric to view', [
 
 
 # Metrics
-st.markdown('### Metrics')
+st.markdown('### Performance Summary')
 col1, col2, col3 = st.columns(3)
 col1.metric("Most Used Platform", "Instagram", "27% of posts")
 col2.metric("Most Viewed Platform", "Facebook", "5400 Average Impressions Per Post")
 col3.metric("Most Engaging Platform", "Facebook", "3% Average Engagement Rate Per Post")
+
+
+st.markdown('---')
+
 
 col1, col2, col3, col4 = st.columns(4)
 col1.metric("Most Engaged Content On Facebook", "Text", "380 Average Engagement Per Post")
