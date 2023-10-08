@@ -252,7 +252,7 @@ col1, col2, col3, col4 = st.columns(4)
 col1.metric("Most Engaged Content On Facebook", "Text", "380 Average Engagement Per Post")
 col2.metric("Most Engaged Content On Instagram", "Video", "140 Average Engagement Per Post")
 col3.metric("Most Engaged Content On Twitter", "Photo", "120 Average Engagement Per Post")
-col4.metric("Most Engaged Content On Linkedin", "Poll", "600 Average Engagement Per Post"))
+col4.metric("Most Engaged Content On Linkedin", "Poll", "600 Average Engagement Per Post")
 
 
 # Content Type
