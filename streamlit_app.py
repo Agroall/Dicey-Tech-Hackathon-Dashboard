@@ -68,7 +68,7 @@ st.sidebar.header("`Dicey Tech Hackathon`")
 
 
 # Platform Metrics Per Year
-st.sidebar.subheader('Platform Metrics Per Year')
+st.sidebar.subheader('Yearly Performance Review')
 bar_choice = st.sidebar.selectbox('Select metric', [
     'Number of Posts',
     'Impressions',
@@ -76,8 +76,11 @@ bar_choice = st.sidebar.selectbox('Select metric', [
 ])
 
 
+st.sidebar.markdown('---')
+
+
 # Content Type
-st.sidebar.subheader('Average Engagement By Content Type')
+st.sidebar.subheader('Most Engaging Types of Post')
 content_choice = st.sidebar.selectbox(' Select platform', [
     'Facebook',
     'Instagram',
@@ -124,6 +127,7 @@ st.markdown('---')
 
 
 # Bar_chart_Section
+st.markdown('### Yearly Performance Review')
 if bar_choice == 'Number of Posts':
 
     for media in mediums:
@@ -247,7 +251,7 @@ elif bar_choice == 'Engagements':
 
 st.plotly_chart(fig)
     
-
+st.markdown('### Most Engaging Contents')
 col1, col2, col3, col4 = st.columns(4)
 col1.metric("Most Engaged Content On Facebook", "Text", "380 Average Engagement Per Post")
 col2.metric("Most Engaged Content On Instagram", "Video", "140 Average Engagement Per Post")
@@ -255,7 +259,11 @@ col3.metric("Most Engaged Content On Twitter", "Photo", "120 Average Engagement 
 col4.metric("Most Engaged Content On Linkedin", "Poll", "600 Average Engagement Per Post")
 
 
+st.markdown('---')
+
+
 # Content Type
+st.markdown('### Most Engaging Types of Posts')
 if content_choice == 'Facebook':
     rr=[]
     for content in fb_reduced['Content Type'].unique():
@@ -321,13 +329,17 @@ elif content_choice == 'Linkedin':
     st.plotly_chart(fig)
     
 
-st.markdown('### Metrics')
+st.markdown('### Best Time To Posts')
 col1, col2 = st.columns(2)
 col1.metric("Best Period To Post On Facebook", "Saturday, Monday, Friday", "8-12pm")
 col2.metric("Best Period To Post On Instagram", "Sunday, Saturday, Friday", "9pm-2am")
 col3, col4 = st.columns(2)
 col3.metric("Best Period To Post On Twitter", "Sunday, Wednesday, Thursday", "8-12pm")
 col4.metric("Best Period To Post On LInkedin", "Saturday, Sunday, Monday", "")
+
+
+
+st.sidebar.markdown('---')
 
 
 # Posting Times
