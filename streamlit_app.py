@@ -123,6 +123,122 @@ col3.metric("Most Engaging Platform", "Facebook", "3% Average Engagement Rate Pe
 st.markdown('---')
 
 
+# Bar_chart_Section
+if bar_choice == 'Number of Posts':
+
+    for media in mediums:
+        media['year'] = media.Date.apply(lambda x: x.strftime('%Y'))
+        media.sort_values('Date', inplace=True)
+    
+    post_counts = {}
+    for index, media in enumerate(mediums):
+        post_count_temp = media.value_counts('year').sort_index()
+        post_counts[mediums_list[index]] = post_count_temp
+    
+    media_post_count = pd.DataFrame(post_counts)
+    media_post_count['year'] = media_post_count.index
+    
+    colors = ['rgb(31, 119, 180)', 'rgb(255, 127, 14)', 'rgb(44, 160, 44)',
+              'rgb(214, 39, 40)', 'rgb(148, 103, 189)', 'rgb(140, 86, 75)']
+    
+    data = []
+    for i, medium in enumerate(mediums_list):
+        trace = go.Bar(x=media_post_count['year'], y=media_post_count[medium], name=medium,
+                       marker_color=colors[i % len(colors)])
+        data.append(trace)
+    
+    layout = go.Layout(title='Total Yearly Amount Of Posts For All Media Groups',
+                       xaxis=dict(title='Year'),
+                       yaxis=dict(title='Post Count'),
+                       barmode='group',
+                       legend=dict(
+                            x=0,
+                            y=1.0,
+                            bgcolor='rgba(255, 255, 255, 0)',
+                            bordercolor='rgba(255, 255, 255, 0)'
+                        ))
+    
+    fig = go.Figure(data=data, layout=layout)
+    fig.show()
+
+
+
+elif bar_choice == 'Impressions':
+    for media in mediums_impression_temp:
+        media['year'] = media.Date.apply(lambda x: x.strftime('%Y'))
+        media.sort_values('Date', inplace=True)
+    
+    post_counts = {}
+    for index, media in enumerate(mediums_impression_temp):
+        impressions_sum_temp = media.groupby('year')['Impressions'].mean()
+        post_counts[mediums_list[index]] = impressions_sum_temp
+    
+    media_post_count = pd.DataFrame(post_counts)
+    media_post_count['year'] = media_post_count.index
+    
+    colors = ['rgb(31, 119, 180)', 'rgb(255, 127, 14)', 'rgb(44, 160, 44)',
+              'rgb(214, 39, 40)', 'rgb(148, 103, 189)', 'rgb(140, 86, 75)']
+    
+    data = []
+    for i, medium in enumerate(mediums_list):
+        trace = go.Bar(x=media_post_count['year'], y=media_post_count[medium], name=medium,
+                       marker_color=colors[i % len(colors)])
+        data.append(trace)
+    
+    layout = go.Layout(title='Total Yearly Average Impressions For All Media Groups',
+                       xaxis=dict(title='Year'),
+                       yaxis=dict(title='Impressions'),
+                       barmode='group',
+                       legend=dict(
+                            x=0,
+                            y=1.0,
+                            bgcolor='rgba(255, 255, 255, 0)',
+                            bordercolor='rgba(255, 255, 255, 0)'
+                        ))
+    
+    fig = go.Figure(data=data, layout=layout)
+    fig.show()
+
+
+elif bar_choice == 'Engagements':    
+    for media in mediums_impression_temp:
+        media['year'] = media.Date.apply(lambda x: x.strftime('%Y'))
+        media.sort_values('Date', inplace=True)
+    
+    post_counts = {}
+    for index, media in enumerate(mediums_impression_temp):
+        impressions_sum_temp = media.groupby('year')['Engagements'].mean()
+        post_counts[mediums_list[index]] = impressions_sum_temp
+    
+    media_post_count = pd.DataFrame(post_counts)
+    media_post_count['year'] = media_post_count.index
+    
+    colors = ['rgb(31, 119, 180)', 'rgb(255, 127, 14)', 'rgb(44, 160, 44)',
+              'rgb(214, 39, 40)', 'rgb(148, 103, 189)', 'rgb(140, 86, 75)']
+    
+    data = []
+    for i, medium in enumerate(mediums_list):
+        trace = go.Bar(x=media_post_count['year'], y=media_post_count[medium], name=medium,
+                       marker_color=colors[i % len(colors)])
+        data.append(trace)
+    
+    layout = go.Layout(title='Total Yearly Average Engagements For All Media Groups',
+                       xaxis=dict(title='Year'),
+                       yaxis=dict(title='Engagements'),
+                       barmode='group',
+                       legend=dict(
+                            x=0,
+                            y=1.0,
+                            bgcolor='rgba(255, 255, 255, 0)',
+                            bordercolor='rgba(255, 255, 255, 0)'
+                        ))
+    
+    fig = go.Figure(data=data, layout=layout)
+    fig.show()
+
+st.plotly_chart(fig)
+    
+
 st.markdown('''
 #### Types of Posts Metrics
 ---
@@ -133,177 +249,59 @@ Most Engaging Content On LinkedIn: Poll
 ''')
 
 
-c1, c2 = st.columns((5,5))
-with c1:
-    # Bar_chart_Section
-    if bar_choice == 'Number of Posts':
-    
-        for media in mediums:
-            media['year'] = media.Date.apply(lambda x: x.strftime('%Y'))
-            media.sort_values('Date', inplace=True)
-        
-        post_counts = {}
-        for index, media in enumerate(mediums):
-            post_count_temp = media.value_counts('year').sort_index()
-            post_counts[mediums_list[index]] = post_count_temp
-        
-        media_post_count = pd.DataFrame(post_counts)
-        media_post_count['year'] = media_post_count.index
-        
-        colors = ['rgb(31, 119, 180)', 'rgb(255, 127, 14)', 'rgb(44, 160, 44)',
-                  'rgb(214, 39, 40)', 'rgb(148, 103, 189)', 'rgb(140, 86, 75)']
-        
-        data = []
-        for i, medium in enumerate(mediums_list):
-            trace = go.Bar(x=media_post_count['year'], y=media_post_count[medium], name=medium,
-                           marker_color=colors[i % len(colors)])
-            data.append(trace)
-        
-        layout = go.Layout(title='Total Yearly Amount Of Posts For All Media Groups',
-                           xaxis=dict(title='Year'),
-                           yaxis=dict(title='Post Count'),
-                           barmode='group',
-                           legend=dict(
-                                x=0,
-                                y=1.0,
-                                bgcolor='rgba(255, 255, 255, 0)',
-                                bordercolor='rgba(255, 255, 255, 0)'
-                            ))
-        
-        fig = go.Figure(data=data, layout=layout)
-        fig.show()
-    
-    
-    
-    elif bar_choice == 'Impressions':
-        for media in mediums_impression_temp:
-            media['year'] = media.Date.apply(lambda x: x.strftime('%Y'))
-            media.sort_values('Date', inplace=True)
-        
-        post_counts = {}
-        for index, media in enumerate(mediums_impression_temp):
-            impressions_sum_temp = media.groupby('year')['Impressions'].mean()
-            post_counts[mediums_list[index]] = impressions_sum_temp
-        
-        media_post_count = pd.DataFrame(post_counts)
-        media_post_count['year'] = media_post_count.index
-        
-        colors = ['rgb(31, 119, 180)', 'rgb(255, 127, 14)', 'rgb(44, 160, 44)',
-                  'rgb(214, 39, 40)', 'rgb(148, 103, 189)', 'rgb(140, 86, 75)']
-        
-        data = []
-        for i, medium in enumerate(mediums_list):
-            trace = go.Bar(x=media_post_count['year'], y=media_post_count[medium], name=medium,
-                           marker_color=colors[i % len(colors)])
-            data.append(trace)
-        
-        layout = go.Layout(title='Total Yearly Average Impressions For All Media Groups',
-                           xaxis=dict(title='Year'),
-                           yaxis=dict(title='Impressions'),
-                           barmode='group',
-                           legend=dict(
-                                x=0,
-                                y=1.0,
-                                bgcolor='rgba(255, 255, 255, 0)',
-                                bordercolor='rgba(255, 255, 255, 0)'
-                            ))
-        
-        fig = go.Figure(data=data, layout=layout)
-        fig.show()
-    
-    
-    elif bar_choice == 'Engagements':    
-        for media in mediums_impression_temp:
-            media['year'] = media.Date.apply(lambda x: x.strftime('%Y'))
-            media.sort_values('Date', inplace=True)
-        
-        post_counts = {}
-        for index, media in enumerate(mediums_impression_temp):
-            impressions_sum_temp = media.groupby('year')['Engagements'].mean()
-            post_counts[mediums_list[index]] = impressions_sum_temp
-        
-        media_post_count = pd.DataFrame(post_counts)
-        media_post_count['year'] = media_post_count.index
-        
-        colors = ['rgb(31, 119, 180)', 'rgb(255, 127, 14)', 'rgb(44, 160, 44)',
-                  'rgb(214, 39, 40)', 'rgb(148, 103, 189)', 'rgb(140, 86, 75)']
-        
-        data = []
-        for i, medium in enumerate(mediums_list):
-            trace = go.Bar(x=media_post_count['year'], y=media_post_count[medium], name=medium,
-                           marker_color=colors[i % len(colors)])
-            data.append(trace)
-        
-        layout = go.Layout(title='Total Yearly Average Engagements For All Media Groups',
-                           xaxis=dict(title='Year'),
-                           yaxis=dict(title='Engagements'),
-                           barmode='group',
-                           legend=dict(
-                                x=0,
-                                y=1.0,
-                                bgcolor='rgba(255, 255, 255, 0)',
-                                bordercolor='rgba(255, 255, 255, 0)'
-                            ))
-        
-        fig = go.Figure(data=data, layout=layout)
-        fig.show()
-    
+# Content Type
+if content_choice == 'Facebook':
+    rr=[]
+    for content in fb_reduced['Content Type'].unique():
+        re = fb_reduced[fb_reduced['Content Type']==content]['Engagements'].mean()
+        rr.append(re)
+    fig = go.Figure([go.Bar(x=fb_reduced['Content Type'].unique(), y=rr)])
+    fig.update_layout(title=f'Average Engagement By Content Type For Facebook', xaxis_title='Content Type', yaxis_title='Engagements')
+    fig.show()
+
+    st.plotly_chart(fig)
+
+
+elif content_choice == 'Instagram':
+    rr=[]
+    for content in ig_reduced['Content Type'].unique():
+        re = ig_reduced[ig_reduced['Content Type']==content]['Engagements'].mean()
+        rr.append(re)
+    fig = go.Figure([go.Bar(x=ig_reduced['Content Type'].unique(), y=rr)])
+    fig.update_layout(title=f'Average Engagement By Content Type For Instagram', xaxis_title='Content Type', yaxis_title='Engagements')
+    fig.show()
+
+    st.plotly_chart(fig)
+
+
+elif content_choice == 'Twitter':
+    rr=[]
+    for content in tw_reduced['Content Type'].unique():
+        re = tw_reduced[tw_reduced['Content Type']==content]['Engagements'].mean()
+        rr.append(re)
+    fig = go.Figure([go.Bar(x=tw_reduced['Content Type'].unique(), y=rr)])
+    fig.update_layout(title=f'Average Engagement By Content Type For Twitter', xaxis_title='Content Type', yaxis_title='Engagements')
+    fig.show()
+
+    st.plotly_chart(fig)
+
+
+elif content_choice == 'Linkedin':
+    rr=[]
+    for content in ln_reduced['Content Type'].unique():
+        if content in ['Poll', 'Document']:
+            continue
+        else:
+            re = ln_reduced[ln_reduced['Content Type']==content]['Engagements'].mean()
+            rr.append(re)
+    lister = list(media['Content Type'].unique())
+    lister = [lst for lst in lister if lst not in ['Poll', 'Document']] 
+    fig = go.Figure([go.Bar(x=lister, y=rr)])
+    fig.update_layout(title=f'Average Engagement By Content Type For Linkedin', xaxis_title='Content Type', yaxis_title='Engagements')
+    fig.show()
+
     st.plotly_chart(fig)
     
-
-with c2:
-    # Content Type
-    if content_choice == 'Facebook':
-        rr=[]
-        for content in fb_reduced['Content Type'].unique():
-            re = fb_reduced[fb_reduced['Content Type']==content]['Engagements'].mean()
-            rr.append(re)
-        fig = go.Figure([go.Bar(x=fb_reduced['Content Type'].unique(), y=rr)])
-        fig.update_layout(title=f'Average Engagement By Content Type For Facebook', xaxis_title='Content Type', yaxis_title='Engagements')
-        fig.show()
-    
-        st.plotly_chart(fig)
-    
-    
-    elif content_choice == 'Instagram':
-        rr=[]
-        for content in ig_reduced['Content Type'].unique():
-            re = ig_reduced[ig_reduced['Content Type']==content]['Engagements'].mean()
-            rr.append(re)
-        fig = go.Figure([go.Bar(x=ig_reduced['Content Type'].unique(), y=rr)])
-        fig.update_layout(title=f'Average Engagement By Content Type For Instagram', xaxis_title='Content Type', yaxis_title='Engagements')
-        fig.show()
-    
-        st.plotly_chart(fig)
-    
-    
-    elif content_choice == 'Twitter':
-        rr=[]
-        for content in tw_reduced['Content Type'].unique():
-            re = tw_reduced[tw_reduced['Content Type']==content]['Engagements'].mean()
-            rr.append(re)
-        fig = go.Figure([go.Bar(x=tw_reduced['Content Type'].unique(), y=rr)])
-        fig.update_layout(title=f'Average Engagement By Content Type For Twitter', xaxis_title='Content Type', yaxis_title='Engagements')
-        fig.show()
-    
-        st.plotly_chart(fig)
-    
-    
-    elif content_choice == 'Linkedin':
-        rr=[]
-        for content in ln_reduced['Content Type'].unique():
-            if content in ['Poll', 'Document']:
-                continue
-            else:
-                re = ln_reduced[ln_reduced['Content Type']==content]['Engagements'].mean()
-                rr.append(re)
-        lister = list(media['Content Type'].unique())
-        lister = [lst for lst in lister if lst not in ['Poll', 'Document']] 
-        fig = go.Figure([go.Bar(x=lister, y=rr)])
-        fig.update_layout(title=f'Average Engagement By Content Type For Linkedin', xaxis_title='Content Type', yaxis_title='Engagements')
-        fig.show()
-    
-        st.plotly_chart(fig)
 
 st.markdown('### Metrics')
 col1, col2 = st.columns(2)
