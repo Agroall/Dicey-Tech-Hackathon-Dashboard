@@ -130,7 +130,7 @@ Most Engaging Content On Facebook: Text
 Most Engaging Content On Instagram: Video
 Most Engaging Content On Twitter: Photo
 Most Engaging Content On LinkedIn: Poll
-
+''')
 
 
 c1, c2 = st.columns((5,5))
