@@ -60,7 +60,7 @@ for lister in [mediums, mediums_impression_temp, mediums_engagement_temp]:
 
 
 # Streamlit app
-st.title("`Dicey Tech Hackathon Dashboard`")
+st.title("                   `Dicey Tech Hackathon Dashboard`")
 st.markdown(' ')
 st.markdown(' ')
 
