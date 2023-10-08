@@ -255,7 +255,7 @@ elif bar_choice == 'Engagements':
 st.plotly_chart(fig)
 
 
-st.sidebar.markdown('---')
+st.markdown('---')
 
 
 st.markdown('### Most Engaging Contents')
@@ -279,7 +279,7 @@ if content_choice == 'Facebook':
     fig = go.Figure([go.Bar(x=fb_reduced['Content Type'].unique(), y=rr)])
     fig.update_layout(title=f'Average Engagement By Content Type For Facebook', xaxis_title='Content Type', yaxis_title='Engagements',
                         height=800, # Increase the height of the chart
-                        width=1200 # Increase the width of the chart
+                        width=1000 # Increase the width of the chart
                      )
     fig.show()
 
@@ -336,7 +336,7 @@ elif content_choice == 'Linkedin':
     st.plotly_chart(fig)
 
 
-st.sidebar.markdown('---')
+st.markdown('---')
 
 
 st.markdown('### Best Time To Posts')
@@ -349,7 +349,7 @@ col4.metric("Best Period To Post On LInkedin", "Saturday, Sunday, Monday", "")
 
 
 
-st.sidebar.markdown('---')
+st.markdown('---')
 
 
 # Posting Times
@@ -453,7 +453,7 @@ elif heatmap_choice == 'Linkedin':
     st.plotly_chart(fig)
 
 
-st.sidebar.markdown('---')
+st.markdown('---')
 
 
 # Time Series Analysis Section#
@@ -634,5 +634,6 @@ st.plotly_chart(fig)
 
 
 st.sidebar.markdown('''
+---
 Created By Abatan Ayodeji (Agroall) For Dicey Tech Hackathon.
 ''')
