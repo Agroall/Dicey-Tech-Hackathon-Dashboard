@@ -260,9 +260,14 @@ with c2:
     elif content_choice == 'Linkedin':
         rr=[]
         for content in ln_reduced['Content Type'].unique():
-            re = ln_reduced[ln_reduced['Content Type']==content]['Engagements'].mean()
-            rr.append(re)
-        fig = go.Figure([go.Bar(x=ln_reduced['Content Type'].unique(), y=rr)])
+            if content in ['Poll', 'Document']:
+                continue
+            else:
+                re = ln_reduced[ln_reduced['Content Type']==content]['Engagements'].mean()
+                rr.append(re)
+        lister = list(media['Content Type'].unique())
+        lister = [lst for lst in lister if lst not in ['Poll', 'Document']] 
+        fig = go.Figure([go.Bar(x=lister, y=rr)])
         fig.update_layout(title=f'Average Engagement By Content Type For Linkedin', xaxis_title='Content Type', yaxis_title='Engagements')
         fig.show()
     
