@@ -156,7 +156,10 @@ if bar_choice == 'Number of Posts':
                             y=1.0,
                             bgcolor='rgba(255, 255, 255, 0)',
                             bordercolor='rgba(255, 255, 255, 0)'
-                        ))
+                        ),
+                        height=800, # Increase the height of the chart
+                        width=1200 # Increase the width of the chart
+                                      )
     
     fig = go.Figure(data=data, layout=layout)
     fig.show()
@@ -194,7 +197,9 @@ elif bar_choice == 'Impressions':
                             y=1.0,
                             bgcolor='rgba(255, 255, 255, 0)',
                             bordercolor='rgba(255, 255, 255, 0)'
-                        ))
+                        ),
+                        height=800, # Increase the height of the chart
+                        width=1200 # Increase the width of the chart)
     
     fig = go.Figure(data=data, layout=layout)
     fig.show()
@@ -231,7 +236,9 @@ elif bar_choice == 'Engagements':
                             y=1.0,
                             bgcolor='rgba(255, 255, 255, 0)',
                             bordercolor='rgba(255, 255, 255, 0)'
-                        ))
+                        ),
+                        height=800, # Increase the height of the chart
+                        width=1200 # Increase the width of the chart)
     
     fig = go.Figure(data=data, layout=layout)
     fig.show()
@@ -239,14 +246,11 @@ elif bar_choice == 'Engagements':
 st.plotly_chart(fig)
     
 
-st.markdown('''
-#### Types of Posts Metrics
----
-Most Engaging Content On Facebook: Text
-Most Engaging Content On Instagram: Video
-Most Engaging Content On Twitter: Photo
-Most Engaging Content On LinkedIn: Poll
-''')
+col1, col2, col3, col4 = st.columns(4)
+col1.metric("Most Engaged Content On Facebook", "Text", "380 Average Engagement Per Post")
+col2.metric("Most Engaged Content On Instagram", "Video", "140 Average Engagement Per Post")
+col3.metric("Most Engaged Content On Twitter", "Photo", "120 Average Engagement Per Post")
+col4.metric("Most Engaged Content On Linkedin", "Poll", "600 Average Engagement Per Post"))
 
 
 # Content Type
@@ -256,7 +260,9 @@ if content_choice == 'Facebook':
         re = fb_reduced[fb_reduced['Content Type']==content]['Engagements'].mean()
         rr.append(re)
     fig = go.Figure([go.Bar(x=fb_reduced['Content Type'].unique(), y=rr)])
-    fig.update_layout(title=f'Average Engagement By Content Type For Facebook', xaxis_title='Content Type', yaxis_title='Engagements')
+    fig.update_layout(title=f'Average Engagement By Content Type For Facebook', xaxis_title='Content Type', yaxis_title='Engagements',
+                        height=800, # Increase the height of the chart
+                        width=1200 # Increase the width of the chart)
     fig.show()
 
     st.plotly_chart(fig)
@@ -268,7 +274,9 @@ elif content_choice == 'Instagram':
         re = ig_reduced[ig_reduced['Content Type']==content]['Engagements'].mean()
         rr.append(re)
     fig = go.Figure([go.Bar(x=ig_reduced['Content Type'].unique(), y=rr)])
-    fig.update_layout(title=f'Average Engagement By Content Type For Instagram', xaxis_title='Content Type', yaxis_title='Engagements')
+    fig.update_layout(title=f'Average Engagement By Content Type For Instagram', xaxis_title='Content Type', yaxis_title='Engagements',
+                        height=800, # Increase the height of the chart
+                        width=1200 # Increase the width of the chart)
     fig.show()
 
     st.plotly_chart(fig)
@@ -280,7 +288,9 @@ elif content_choice == 'Twitter':
         re = tw_reduced[tw_reduced['Content Type']==content]['Engagements'].mean()
         rr.append(re)
     fig = go.Figure([go.Bar(x=tw_reduced['Content Type'].unique(), y=rr)])
-    fig.update_layout(title=f'Average Engagement By Content Type For Twitter', xaxis_title='Content Type', yaxis_title='Engagements')
+    fig.update_layout(title=f'Average Engagement By Content Type For Twitter', xaxis_title='Content Type', yaxis_title='Engagements',
+                        height=800, # Increase the height of the chart
+                        width=1200 # Increase the width of the chart)
     fig.show()
 
     st.plotly_chart(fig)
@@ -297,7 +307,9 @@ elif content_choice == 'Linkedin':
     lister = list(media['Content Type'].unique())
     lister = [lst for lst in lister if lst not in ['Poll', 'Document']] 
     fig = go.Figure([go.Bar(x=lister, y=rr)])
-    fig.update_layout(title=f'Average Engagement By Content Type For Linkedin', xaxis_title='Content Type', yaxis_title='Engagements')
+    fig.update_layout(title=f'Average Engagement By Content Type For Linkedin', xaxis_title='Content Type', yaxis_title='Engagements',
+                        height=800, # Increase the height of the chart
+                        width=1200 # Increase the width of the chart)
     fig.show()
 
     st.plotly_chart(fig)
@@ -305,7 +317,7 @@ elif content_choice == 'Linkedin':
 
 st.markdown('### Metrics')
 col1, col2 = st.columns(2)
-col1.metric("Best Period To Post On Facebook", "Saturday, Monnday, Friday", "8-12pm")
+col1.metric("Best Period To Post On Facebook", "Saturday, Monday, Friday", "8-12pm")
 col2.metric("Best Period To Post On Instagram", "Sunday, Saturday, Friday", "9pm-2am")
 col3, col4 = st.columns(2)
 col3.metric("Best Period To Post On Twitter", "Sunday, Wednesday, Thursday", "8-12pm")
