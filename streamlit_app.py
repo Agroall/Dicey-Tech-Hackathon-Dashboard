@@ -199,7 +199,8 @@ elif bar_choice == 'Impressions':
                             bordercolor='rgba(255, 255, 255, 0)'
                         ),
                         height=800, # Increase the height of the chart
-                        width=1200 # Increase the width of the chart)
+                        width=1200 # Increase the width of the chart
+                      )
     
     fig = go.Figure(data=data, layout=layout)
     fig.show()
@@ -238,7 +239,8 @@ elif bar_choice == 'Engagements':
                             bordercolor='rgba(255, 255, 255, 0)'
                         ),
                         height=800, # Increase the height of the chart
-                        width=1200 # Increase the width of the chart)
+                        width=1200 # Increase the width of the chart
+                      )
     
     fig = go.Figure(data=data, layout=layout)
     fig.show()
@@ -262,7 +264,8 @@ if content_choice == 'Facebook':
     fig = go.Figure([go.Bar(x=fb_reduced['Content Type'].unique(), y=rr)])
     fig.update_layout(title=f'Average Engagement By Content Type For Facebook', xaxis_title='Content Type', yaxis_title='Engagements',
                         height=800, # Increase the height of the chart
-                        width=1200 # Increase the width of the chart)
+                        width=1200 # Increase the width of the chart
+                     )
     fig.show()
 
     st.plotly_chart(fig)
@@ -276,7 +279,8 @@ elif content_choice == 'Instagram':
     fig = go.Figure([go.Bar(x=ig_reduced['Content Type'].unique(), y=rr)])
     fig.update_layout(title=f'Average Engagement By Content Type For Instagram', xaxis_title='Content Type', yaxis_title='Engagements',
                         height=800, # Increase the height of the chart
-                        width=1200 # Increase the width of the chart)
+                        width=1200 # Increase the width of the chart
+                     )
     fig.show()
 
     st.plotly_chart(fig)
@@ -290,7 +294,8 @@ elif content_choice == 'Twitter':
     fig = go.Figure([go.Bar(x=tw_reduced['Content Type'].unique(), y=rr)])
     fig.update_layout(title=f'Average Engagement By Content Type For Twitter', xaxis_title='Content Type', yaxis_title='Engagements',
                         height=800, # Increase the height of the chart
-                        width=1200 # Increase the width of the chart)
+                        width=1200 # Increase the width of the chart
+                     )
     fig.show()
 
     st.plotly_chart(fig)
@@ -309,7 +314,8 @@ elif content_choice == 'Linkedin':
     fig = go.Figure([go.Bar(x=lister, y=rr)])
     fig.update_layout(title=f'Average Engagement By Content Type For Linkedin', xaxis_title='Content Type', yaxis_title='Engagements',
                         height=800, # Increase the height of the chart
-                        width=1200 # Increase the width of the chart)
+                        width=1200 # Increase the width of the chart
+                     )
     fig.show()
 
     st.plotly_chart(fig)
