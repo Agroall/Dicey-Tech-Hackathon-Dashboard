@@ -123,11 +123,15 @@ col3.metric("Most Engaging Platform", "Facebook", "3% Average Engagement Rate Pe
 st.markdown('---')
 
 
-col1, col2, col3, col4 = st.columns(4)
-col1.metric("Most Engaged Content On Facebook", "Text", "380 Average Engagement Per Post")
-col2.metric("Most Engaged Content On Instagram", "Video", "140 Average Engagement Per Post")
-col3.metric("Most Engaged Content On Twitter", "Photo", "120 Average Engagement Per Post")
-col4.metric("Most Engaged Content On LInkedin", "Poll", "600 Average Engagement Per Post")
+st.markdown('''
+#### Types of Posts Metrics
+---
+Most Engaging Content On Facebook: Text
+Most Engaging Content On Instagram: Video
+Most Engaging Content On Twitter: Photo
+Most Engaging Content On LinkedIn: Poll
+
+
 
 c1, c2 = st.columns((5,5))
 with c1:
@@ -158,7 +162,13 @@ with c1:
         layout = go.Layout(title='Total Yearly Amount Of Posts For All Media Groups',
                            xaxis=dict(title='Year'),
                            yaxis=dict(title='Post Count'),
-                           barmode='group')
+                           barmode='group',
+                           legend=dict(
+                                x=0,
+                                y=1.0,
+                                bgcolor='rgba(255, 255, 255, 0)',
+                                bordercolor='rgba(255, 255, 255, 0)'
+                            ))
         
         fig = go.Figure(data=data, layout=layout)
         fig.show()
@@ -190,7 +200,13 @@ with c1:
         layout = go.Layout(title='Total Yearly Average Impressions For All Media Groups',
                            xaxis=dict(title='Year'),
                            yaxis=dict(title='Impressions'),
-                           barmode='group')
+                           barmode='group',
+                           legend=dict(
+                                x=0,
+                                y=1.0,
+                                bgcolor='rgba(255, 255, 255, 0)',
+                                bordercolor='rgba(255, 255, 255, 0)'
+                            ))
         
         fig = go.Figure(data=data, layout=layout)
         fig.show()
@@ -221,7 +237,13 @@ with c1:
         layout = go.Layout(title='Total Yearly Average Engagements For All Media Groups',
                            xaxis=dict(title='Year'),
                            yaxis=dict(title='Engagements'),
-                           barmode='group')
+                           barmode='group',
+                           legend=dict(
+                                x=0,
+                                y=1.0,
+                                bgcolor='rgba(255, 255, 255, 0)',
+                                bordercolor='rgba(255, 255, 255, 0)'
+                            ))
         
         fig = go.Figure(data=data, layout=layout)
         fig.show()
